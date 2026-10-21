@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { PILLAR_METADATA } from '@surakshit-bharat/shared';
 import {
   Users,
@@ -19,12 +20,21 @@ export const PillarsSection: React.FC = () => {
   const [qrScanned, setQrScanned] = useState(false);
 
   return (
-    <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 border-b border-hairline border-paper-border dark:border-ink-border bg-paper/60 dark:bg-ink/60">
+    <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 border-b border-hairline border-paper-border dark:border-ink-border bg-paper/60 dark:bg-ink/60 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mb-16"
+        >
           <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-saffron mb-3">
-            <span className="w-2 h-2 rounded-full bg-saffron" />
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-saffron opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-saffron" />
+            </span>
             Four Unified Pillars
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-tight text-ink dark:text-paper leading-tight mb-4">
@@ -35,12 +45,19 @@ export const PillarsSection: React.FC = () => {
             manufactured product authenticity, transport corridor safety, and digital financial
             threats into one shared data model.
           </p>
-        </div>
+        </motion.div>
 
-        {/* The 4 Distinct Panels Grid */}
+        {/* The 4 Distinct Panels Grid with Animated Entrance & Hover Lift */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Panel 1: Community Safety (Saffron) with Indian Smart City Background */}
-          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#FF8A1F]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#FF8A1F] transition-all shadow-xl">
+          {/* Panel 1: Community Safety (Saffron) */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            transition={{ duration: 0.3 }}
+            className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#FF8A1F]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#FF8A1F] hover:shadow-[0_0_30px_rgba(255,138,31,0.2)] transition-all shadow-xl"
+          >
             {/* Photographic Backdrop */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
               <img
@@ -56,7 +73,7 @@ export const PillarsSection: React.FC = () => {
                 <span className="font-mono text-xs font-bold text-[#FF8A1F] uppercase tracking-wider px-2.5 py-1 rounded bg-[#FF8A1F]/15 border border-[#FF8A1F]/30 backdrop-blur-md">
                   Pillar 01 • Community Safety
                 </span>
-                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#FF8A1F]/30 backdrop-blur-md">
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#FF8A1F]/30 backdrop-blur-md group-hover:rotate-6 transition-transform">
                   <Users className="w-5 h-5 text-[#FF8A1F]" />
                 </div>
               </div>
@@ -72,7 +89,10 @@ export const PillarsSection: React.FC = () => {
               {/* Mini Visual: Hazard Triage Queue Preview */}
               <div className="p-4 rounded-xl bg-paper/85 dark:bg-ink/85 border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 space-y-2 backdrop-blur-md shadow-sm">
                 <div className="flex items-center justify-between text-[11px] text-neutral-400 pb-2 border-b border-paper-border dark:border-ink-border">
-                  <span>LIVE TICKET INGESTION</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#FF8A1F] animate-ping" />
+                    LIVE TICKET INGESTION
+                  </span>
                   <span className="text-[#FF8A1F] font-bold">142 Active in Pilot</span>
                 </div>
                 <div className="flex items-center justify-between py-1">
@@ -104,15 +124,22 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/report/new"
-              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF8A1F] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF8A1F] group-hover:translate-x-1 transition-transform"
             >
               <span>Submit Local Hazard</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </motion.div>
 
-          {/* Panel 2: Local Manufacturing (Teal) with Certification Lab Background */}
-          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#0F9D8A]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#0F9D8A] transition-all shadow-xl">
+          {/* Panel 2: Local Manufacturing (Teal) */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
+            className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#0F9D8A]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#0F9D8A] hover:shadow-[0_0_30px_rgba(15,157,138,0.2)] transition-all shadow-xl"
+          >
             {/* Photographic Backdrop */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
               <img
@@ -128,7 +155,7 @@ export const PillarsSection: React.FC = () => {
                 <span className="font-mono text-xs font-bold text-[#0F9D8A] uppercase tracking-wider px-2.5 py-1 rounded bg-[#0F9D8A]/15 border border-[#0F9D8A]/30 backdrop-blur-md">
                   Pillar 02 • Local Manufacturing
                 </span>
-                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#0F9D8A]/30 backdrop-blur-md">
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#0F9D8A]/30 backdrop-blur-md group-hover:rotate-6 transition-transform">
                   <Factory className="w-5 h-5 text-[#0F9D8A]" />
                 </div>
               </div>
@@ -147,14 +174,14 @@ export const PillarsSection: React.FC = () => {
                   <span className="text-[11px] text-neutral-400">CRYPTOGRAPHIC BATCH CHECK</span>
                   <button
                     onClick={() => setQrScanned(!qrScanned)}
-                    className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#0F9D8A]/15 text-[#0F9D8A] border border-[#0F9D8A]/30 hover:bg-[#0F9D8A]/30"
+                    className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#0F9D8A]/15 text-[#0F9D8A] border border-[#0F9D8A]/30 hover:bg-[#0F9D8A]/30 transition-all"
                   >
                     {qrScanned ? 'Reset Scan' : 'Simulate Scan'}
                   </button>
                 </div>
 
                 {qrScanned ? (
-                  <div className="space-y-1.5 p-3 rounded-lg bg-[#0F9D8A]/15 border border-[#0F9D8A]/40">
+                  <div className="space-y-1.5 p-3 rounded-lg bg-[#0F9D8A]/15 border border-[#0F9D8A]/40 animate-fadeIn">
                     <div className="flex items-center gap-1.5 text-indiagreen font-bold">
                       <CheckCircle className="w-4 h-4 text-[#0F9D8A]" />
                       <span>BATCH VERIFIED: BIS IS 694:2010</span>
@@ -184,15 +211,22 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/manufacturers"
-              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0F9D8A] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0F9D8A] group-hover:translate-x-1 transition-transform"
             >
               <span>Explore Public Registry</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </motion.div>
 
-          {/* Panel 3: Transport Safety (Amber-Yellow) with Indian Expressway Background */}
-          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#F2B705]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#F2B705] transition-all shadow-xl">
+          {/* Panel 3: Transport Safety (Amber-Yellow) */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#F2B705]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#F2B705] hover:shadow-[0_0_30px_rgba(242,183,5,0.2)] transition-all shadow-xl"
+          >
             {/* Photographic Backdrop */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
               <img
@@ -208,7 +242,7 @@ export const PillarsSection: React.FC = () => {
                 <span className="font-mono text-xs font-bold text-[#F2B705] uppercase tracking-wider px-2.5 py-1 rounded bg-[#F2B705]/15 border border-[#F2B705]/30 backdrop-blur-md">
                   Pillar 03 • Transport Safety
                 </span>
-                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#F2B705]/30 backdrop-blur-md">
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#F2B705]/30 backdrop-blur-md group-hover:rotate-6 transition-transform">
                   <Car className="w-5 h-5 text-[#F2B705]" />
                 </div>
               </div>
@@ -262,15 +296,22 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/transport"
-              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F2B705] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F2B705] group-hover:translate-x-1 transition-transform"
             >
               <span>View Ranked Road Stretches</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </motion.div>
 
-          {/* Panel 4: Digital Safety (Indigo) with Cyber Command Center Background */}
-          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#4C5BD4]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#4C5BD4] transition-all shadow-xl">
+          {/* Panel 4: Digital Safety (Indigo) */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6, scale: 1.015 }}
+            transition={{ duration: 0.3, delay: 0.15 }}
+            className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#4C5BD4]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#4C5BD4] hover:shadow-[0_0_30px_rgba(76,91,212,0.2)] transition-all shadow-xl"
+          >
             {/* Photographic Backdrop */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
               <img
@@ -286,7 +327,7 @@ export const PillarsSection: React.FC = () => {
                 <span className="font-mono text-xs font-bold text-[#4C5BD4] uppercase tracking-wider px-2.5 py-1 rounded bg-[#4C5BD4]/15 border border-[#4C5BD4]/30 backdrop-blur-md">
                   Pillar 04 • Digital Safety
                 </span>
-                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#4C5BD4]/30 backdrop-blur-md">
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#4C5BD4]/30 backdrop-blur-md group-hover:rotate-6 transition-transform">
                   <ShieldAlert className="w-5 h-5 text-[#4C5BD4]" />
                 </div>
               </div>
@@ -322,12 +363,12 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/digital-safety"
-              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#4C5BD4] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#4C5BD4] group-hover:translate-x-1 transition-transform"
             >
               <span>Explore Advisories & Helplines</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
