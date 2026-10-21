@@ -7,7 +7,6 @@ import {
   ChevronRight,
   Maximize2,
   Minimize2,
-  Volume2,
   Play,
   Pause,
   Layers,
@@ -32,7 +31,10 @@ import {
   ShieldAlert,
   PhoneCall,
   Camera,
-  ShieldCheck
+  ShieldCheck,
+  MapPin,
+  Check,
+  Copy
 } from 'lucide-react';
 
 interface Slide {
@@ -42,6 +44,8 @@ interface Slide {
   badge: string;
   category: string;
   accent: string;
+  bgImage: string;
+  bgCaption: string;
   content: {
     heading: string;
     description: string;
@@ -60,6 +64,8 @@ const SLIDES: Slide[] = [
     badge: 'EXECUTIVE OVERVIEW • 2026 PILOT',
     category: 'Vision & Inception',
     accent: '#FF8A1F',
+    bgImage: '/india-gate-hero.jpg',
+    bgCaption: 'India Gate National Monument, New Delhi',
     content: {
       heading: 'Safer People. Stronger Communities. A Surakshit Bharat.',
       description:
@@ -103,6 +109,8 @@ const SLIDES: Slide[] = [
     badge: 'PROBLEM STATEMENT & GAP ANALYSIS',
     category: 'Context & Urgency',
     accent: '#D7263D',
+    bgImage: '/secretariat-bg.jpg',
+    bgCaption: 'Central Secretariat & North Block, New Delhi',
     content: {
       heading: 'Critical Breakdowns Across the Current Governance Ecosystem',
       description:
@@ -140,6 +148,8 @@ const SLIDES: Slide[] = [
     badge: 'CORE ARCHITECTURE',
     category: 'Platform Pillars',
     accent: '#FF8A1F',
+    bgImage: '/civic-smartcity-bg.jpg',
+    bgCaption: 'Indian Smart City Infrastructure & Metro Network',
     content: {
       heading: 'A Single Digital Nervous System Across Physical & Cyber Spaces',
       description:
@@ -177,6 +187,8 @@ const SLIDES: Slide[] = [
     badge: 'PILLAR DEEP-DIVE • COMMUNITY',
     category: 'Features & Workflow',
     accent: '#FF8A1F',
+    bgImage: '/civic-smartcity-bg.jpg',
+    bgCaption: 'Urban Infrastructure Corridor & Municipal Wards',
     content: {
       heading: 'Zero-Barrier Reporting with Cryptographic Accountability',
       description:
@@ -190,7 +202,7 @@ const SLIDES: Slide[] = [
         {
           title: '32+ Municipal Jurisdictions Pre-Mapped',
           desc: 'Quick-select pills for major municipal wards across Bengaluru, Mumbai, Delhi, Chennai, Hyderabad, and Kolkata.',
-          icon: MapPinIcon
+          icon: Compass
         },
         {
           title: 'Automated 72-Hour SLA Timer',
@@ -214,6 +226,8 @@ const SLIDES: Slide[] = [
     badge: 'PILLAR DEEP-DIVE • MANUFACTURING',
     category: 'Features & Standards',
     accent: '#0F9D8A',
+    bgImage: '/manufacturing-bg.jpg',
+    bgCaption: 'Advanced Precision Certification & Materials Testing Lab',
     content: {
       heading: 'Protecting Genuine Indian Industry from Illicit Counterfeits',
       description:
@@ -251,6 +265,8 @@ const SLIDES: Slide[] = [
     badge: 'PILLAR DEEP-DIVE • TRANSPORT',
     category: 'Highways & Telemetry',
     accent: '#F2B705',
+    bgImage: '/expressway-hero.jpg',
+    bgCaption: 'Modern National Freight Expressway & Arterial Corridor',
     content: {
       heading: 'Transforming Golden Quadrilateral & National Expressways',
       description:
@@ -288,6 +304,8 @@ const SLIDES: Slide[] = [
     badge: 'PILLAR DEEP-DIVE • DIGITAL SAFETY',
     category: 'Cyber Defense',
     accent: '#4C5BD4',
+    bgImage: '/digital-safety-bg.jpg',
+    bgCaption: 'NCSC National Cyber Security Command Operations Room',
     content: {
       heading: 'Protecting Digital India from Evolving Cyber Crime Syndicates',
       description:
@@ -325,6 +343,8 @@ const SLIDES: Slide[] = [
     badge: 'DATA VISUALIZATION & SCORING',
     category: 'Analytics & Maps',
     accent: '#FF8A1F',
+    bgImage: '/civic-hero-bg.jpg',
+    bgCaption: 'National Cartogram Telemetry & Defense Mesh',
     content: {
       heading: 'Visualizing National Safety without Geographical Area Distortion',
       description:
@@ -362,6 +382,8 @@ const SLIDES: Slide[] = [
     badge: 'ARTIFICIAL INTELLIGENCE & GOVERNANCE',
     category: 'AI Advisory',
     accent: '#10B981',
+    bgImage: '/digital-safety-bg.jpg',
+    bgCaption: 'Executive Intelligence & Command Terminal',
     content: {
       heading: 'Context-Aware National Safety Assistant with Fair-Use Quotas',
       description:
@@ -399,6 +421,8 @@ const SLIDES: Slide[] = [
     badge: 'OPERATIONAL PIPELINE',
     category: 'Incident Resolution',
     accent: '#FF8A1F',
+    bgImage: '/civic-smartcity-bg.jpg',
+    bgCaption: 'Municipal Rapid Action Units & Metropolitan Operations',
     content: {
       heading: 'How a Civic Anomaly is Ingested, Validated, and Measured',
       description:
@@ -443,6 +467,8 @@ const SLIDES: Slide[] = [
     badge: 'TECHNICAL SPECIFICATIONS',
     category: 'Engineering & Stack',
     accent: '#4C5BD4',
+    bgImage: '/secretariat-bg.jpg',
+    bgCaption: 'Sovereign Digital Architecture & Ministry Infrastructure',
     content: {
       heading: 'Enterprise Web Stack Designed for Resilient Public Deployment',
       description:
@@ -480,6 +506,8 @@ const SLIDES: Slide[] = [
     badge: 'USER GUIDE & DEMONSTRATION WORKFLOWS',
     category: 'User Guide',
     accent: '#10B981',
+    bgImage: '/civic-hero-bg.jpg',
+    bgCaption: 'Stakeholder Portals & Citizen Engagement Console',
     content: {
       heading: 'Intuitive Journeys for Citizens, Manufacturers, and Field Authorities',
       description:
@@ -517,6 +545,8 @@ const SLIDES: Slide[] = [
     badge: 'IMPACT & FUTURE HORIZONS',
     category: 'Roadmap & Next Steps',
     accent: '#FF8A1F',
+    bgImage: '/india-gate-hero.jpg',
+    bgCaption: 'India Gate National Monument, Twilight Horizon',
     content: {
       heading: 'Empowering 1.4 Billion Citizens with Data-Driven Safety',
       description:
@@ -555,19 +585,12 @@ const SLIDES: Slide[] = [
   }
 ];
 
-// Helper icon mapping
-function MapPinIcon(props: any) {
-  return <Compass {...props} />;
-}
-function QrCodeIcon(props: any) {
-  return <Factory {...props} />;
-}
-
 export const PresentationPage: React.FC = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [showNotes, setShowNotes] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
+  const [copiedNotes, setCopiedNotes] = useState(false);
 
   const slide = SLIDES[currentSlideIndex];
   const totalSlides = SLIDES.length;
@@ -617,18 +640,51 @@ export const PresentationPage: React.FC = () => {
     }
   };
 
+  const copyNotesToClipboard = () => {
+    navigator.clipboard.writeText(slide.speakerNotes);
+    setCopiedNotes(true);
+    setTimeout(() => setCopiedNotes(false), 2000);
+  };
+
   return (
     <div className="relative min-h-[92vh] w-full bg-ink text-white flex flex-col justify-between overflow-hidden select-none">
-      {/* Background Cinematic Vignette & Ambient Glow */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy/90 via-ink to-black/95" />
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-saffron/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute inset-0 bg-grain opacity-20" />
+      {/* Dynamic Animated Landmark Photographic Background with Crossfade Transition */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slide.bgImage}
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 0.45, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.75, ease: 'easeOut' }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <img
+              src={slide.bgImage}
+              alt={slide.bgCaption}
+              className="w-full h-full object-cover object-center brightness-95 contrast-125 filter"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Cinematic Vignette Layers ensuring ultra-crisp typography */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/65" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/95" />
+        <div className="absolute inset-0 bg-grain opacity-25" />
+
+        {/* Topic-specific ambient neon aura */}
+        <div
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl opacity-25 transition-colors duration-700"
+          style={{ backgroundColor: slide.accent }}
+        />
+        <div
+          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full blur-3xl opacity-20 transition-colors duration-700"
+          style={{ backgroundColor: slide.accent }}
+        />
       </div>
 
       {/* Top Presentation Bar */}
-      <header className="relative z-20 w-full px-4 sm:px-8 py-3.5 border-b border-hairline border-white/10 flex items-center justify-between backdrop-blur-md bg-ink/70">
+      <header className="relative z-20 w-full px-4 sm:px-8 py-3.5 border-b border-hairline border-white/10 flex items-center justify-between backdrop-blur-md bg-ink/70 shadow-lg">
         <div className="flex items-center gap-3">
           <Link
             to="/"
@@ -636,28 +692,28 @@ export const PresentationPage: React.FC = () => {
           >
             <Shield className="w-4 h-4 text-saffron" />
             <span className="font-bold text-white font-serif">Surakshit Bharat</span>
-            <span className="hidden sm:inline text-[10px] text-neutral-500">• PPT Deck</span>
+            <span className="hidden sm:inline text-[10px] text-neutral-400">• National PPT Deck</span>
           </Link>
         </div>
 
         {/* Slide Counter & Progress Pills */}
         <div className="flex items-center gap-3 font-mono text-xs">
-          <div className="flex items-center gap-1.5 hidden sm:flex">
-            {SLIDES.map((_, idx) => (
+          <div className="flex items-center gap-1.5 hidden md:flex">
+            {SLIDES.map((s, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentSlideIndex(idx)}
-                aria-label={`Jump to slide ${idx + 1}`}
-                className={`h-1.5 rounded-full transition-all ${
+                title={`Slide ${idx + 1}: ${s.title}`}
+                className={`h-2 rounded-full transition-all ${
                   idx === currentSlideIndex
-                    ? 'w-6 bg-saffron'
-                    : 'w-2 bg-neutral-700 hover:bg-neutral-500'
+                    ? 'w-7 bg-saffron shadow-sm'
+                    : 'w-2 bg-neutral-600 hover:bg-neutral-400'
                 }`}
               />
             ))}
           </div>
 
-          <span className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-saffron font-bold text-[11px]">
+          <span className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/15 text-saffron font-bold text-[11px] shadow-sm">
             Slide {slide.id} of {totalSlides}
           </span>
         </div>
@@ -669,7 +725,7 @@ export const PresentationPage: React.FC = () => {
             title={autoPlay ? "Pause Auto-play" : "Start Auto-play (8s)"}
             className={`p-2 rounded-lg border transition-all ${
               autoPlay
-                ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400'
+                ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-sm'
                 : 'border-white/15 hover:bg-white/10 text-neutral-300'
             }`}
           >
@@ -700,42 +756,50 @@ export const PresentationPage: React.FC = () => {
       </header>
 
       {/* Main Slide Canvas with Framer Motion Transitions */}
-      <main className="relative z-10 flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-4 sm:px-8 py-6">
+      <main className="relative z-10 flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-4 sm:px-8 py-5">
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id}
-            initial={{ opacity: 0, x: 24, scale: 0.98 }}
+            initial={{ opacity: 0, x: 20, scale: 0.98 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: -24, scale: 0.98 }}
+            exit={{ opacity: 0, x: -20, scale: 0.98 }}
             transition={{ duration: 0.32, ease: 'easeOut' }}
             className="w-full flex flex-col justify-center"
           >
-            {/* Slide Header & Metadata */}
-            <div className="mb-6">
-              <div className="flex items-center gap-2.5 mb-2.5 font-mono text-xs">
-                <span
-                  className="px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] border shadow-sm"
-                  style={{
-                    color: slide.accent,
-                    borderColor: `${slide.accent}50`,
-                    backgroundColor: `${slide.accent}15`
-                  }}
-                >
-                  {slide.badge}
-                </span>
-                <span className="text-neutral-400">• {slide.category}</span>
+            {/* Slide Header & Metadata with Background Setting Indicator */}
+            <div className="mb-5">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2 font-mono text-xs">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] border shadow-sm"
+                    style={{
+                      color: slide.accent,
+                      borderColor: `${slide.accent}50`,
+                      backgroundColor: `${slide.accent}15`
+                    }}
+                  >
+                    {slide.badge}
+                  </span>
+                  <span className="text-neutral-400">• {slide.category}</span>
+                </div>
+
+                {/* Real Landmark Setting Badge */}
+                <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 border border-white/15 text-neutral-300 text-[10.5px] backdrop-blur-md">
+                  <MapPin className="w-3 h-3 text-saffron shrink-0" />
+                  <span>{slide.bgCaption}</span>
+                </div>
               </div>
 
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 leading-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 leading-tight drop-shadow-md">
                 {slide.title}
               </h2>
-              <p className="font-sans text-sm sm:text-base text-neutral-300 font-light max-w-3xl">
+              <p className="font-sans text-sm sm:text-base text-neutral-200 font-light max-w-3xl drop-shadow">
                 {slide.subtitle}
               </p>
             </div>
 
-            {/* Core Slide Content Container */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-ink-card/85 border border-white/15 backdrop-blur-xl shadow-2xl space-y-6">
+            {/* Core Slide Content Container with Glassmorphism */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-ink-card/90 border border-white/15 backdrop-blur-2xl shadow-2xl space-y-5">
               <div>
                 <h3
                   className="font-serif text-xl sm:text-2xl font-semibold mb-2"
@@ -743,22 +807,22 @@ export const PresentationPage: React.FC = () => {
                 >
                   {slide.content.heading}
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-4xl">
+                <p className="font-sans text-xs sm:text-sm text-neutral-200 leading-relaxed max-w-4xl">
                   {slide.content.description}
                 </p>
               </div>
 
               {/* Key Feature Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                 {slide.content.keyPoints.map((point, idx) => {
                   const Icon = point.icon;
                   return (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, y: 12 }}
+                      initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.08 * idx, duration: 0.3 }}
-                      className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-saffron/40 transition-all flex items-start gap-3.5 group"
+                      transition={{ delay: 0.06 * idx, duration: 0.28 }}
+                      className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-saffron/40 transition-all flex items-start gap-3.5 group hover:bg-white/[0.07]"
                     >
                       <div
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border shadow-sm group-hover:scale-105 transition-transform"
@@ -774,7 +838,7 @@ export const PresentationPage: React.FC = () => {
                         <h4 className="font-mono text-xs sm:text-sm font-bold text-white mb-1">
                           {point.title}
                         </h4>
-                        <p className="font-sans text-xs text-neutral-400 leading-relaxed whitespace-pre-line">
+                        <p className="font-sans text-xs text-neutral-300 leading-relaxed whitespace-pre-line">
                           {point.desc}
                         </p>
                       </div>
@@ -786,7 +850,7 @@ export const PresentationPage: React.FC = () => {
               {/* Optional Pipeline Steps Strip */}
               {slide.content.pipelineSteps && (
                 <div className="pt-2 border-t border-white/10">
-                  <div className="text-[11px] font-mono uppercase text-neutral-400 font-bold mb-3">
+                  <div className="text-[11px] font-mono uppercase text-neutral-400 font-bold mb-2.5">
                     5-Stage Execution Sequence:
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs">
@@ -812,12 +876,12 @@ export const PresentationPage: React.FC = () => {
 
               {/* Optional Metrics Row */}
               {slide.content.metrics && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/10 font-mono">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2.5 border-t border-white/10 font-mono">
                   {slide.content.metrics.map((m, idx) => (
                     <div key={idx} className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
                       <div className="text-xl sm:text-2xl font-bold font-serif text-white">{m.value}</div>
                       <div className="text-[11px] text-neutral-300 font-sans font-medium mt-0.5">{m.label}</div>
-                      <div className="text-[9.5px] text-neutral-500 font-mono mt-0.5">{m.sub}</div>
+                      <div className="text-[9.5px] text-neutral-400 font-mono mt-0.5">{m.sub}</div>
                     </div>
                   ))}
                 </div>
@@ -827,7 +891,7 @@ export const PresentationPage: React.FC = () => {
         </AnimatePresence>
       </main>
 
-      {/* Speaker Notes Drawer (Collapsible) */}
+      {/* Speaker Notes Drawer (Collapsible) with Copy Script Action */}
       <AnimatePresence>
         {showNotes && (
           <motion.div
@@ -846,9 +910,28 @@ export const PresentationPage: React.FC = () => {
                   "{slide.speakerNotes}"
                 </p>
               </div>
-              <span className="text-[10px] font-mono text-neutral-500 shrink-0">
-                Press <strong>N</strong> to toggle • Use <strong>← / →</strong> or <strong>Space</strong>
-              </span>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={copyNotesToClipboard}
+                  className="px-2.5 py-1 rounded-lg border border-white/15 hover:border-saffron text-neutral-300 hover:text-white font-mono text-[11px] flex items-center gap-1 transition-colors"
+                >
+                  {copiedNotes ? (
+                    <>
+                      <Check className="w-3 h-3 text-indiagreen" />
+                      <span className="text-indiagreen font-bold">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3 text-saffron" />
+                      <span>Copy Script</span>
+                    </>
+                  )}
+                </button>
+                <span className="text-[10px] font-mono text-neutral-500 hidden md:inline">
+                  Press <strong>N</strong> to toggle • Use <strong>← / →</strong> or <strong>Space</strong>
+                </span>
+              </div>
             </div>
           </motion.div>
         )}
@@ -867,7 +950,7 @@ export const PresentationPage: React.FC = () => {
         <div className="flex items-center gap-2 font-mono text-xs text-neutral-400">
           <span className="hidden md:inline">
             Use keyboard arrows <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">←</kbd>{' '}
-            <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">→</kbd> to navigate
+            <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white">→</kbd> to navigate slides
           </span>
         </div>
 
