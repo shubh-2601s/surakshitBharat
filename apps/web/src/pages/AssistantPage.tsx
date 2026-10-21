@@ -27,6 +27,7 @@ import {
   MAX_REQUESTS_PER_MINUTE,
   MAX_REQUESTS_PER_DAY
 } from '../services/rateLimiter';
+import { ProfessionalMessage } from '../components/assistant/ProfessionalMessage';
 
 export const AssistantPage: React.FC = () => {
   const { user, profile, isAuthenticated, signInAsDemo } = useAuth();
@@ -386,7 +387,7 @@ export const AssistantPage: React.FC = () => {
                         : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-800 dark:text-neutral-200 shadow-sm'
                     }`}
                   >
-                    <div className="whitespace-pre-wrap">{m.content}</div>
+                    <ProfessionalMessage content={m.content} isUser={m.role === 'user'} />
                   </div>
 
                   <div className="flex items-center gap-2 text-[10px] text-neutral-400 mt-1 px-1 font-mono">
