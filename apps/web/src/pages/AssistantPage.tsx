@@ -40,7 +40,7 @@ export const AssistantPage: React.FC = () => {
       id: 'msg-01',
       role: 'assistant',
       content:
-        'Namaste! I am your **Suraksha Assistant**, powered by Gemini AI.\n\n⚡ **Daily Quota:** You have **30 requests available per day** (maximum **2 requests per minute**).\n\nI can look up incident references (e.g. `SB-2026-00412`), explain our 4-pillar Safety Grid scoring weights, or guide you through emergency reporting. Please note all platform statistics reflect **demonstration pilot data**.',
+        'Namaste! I am your **Suraksha Assistant**.\n\n⚡ **Daily Quota:** You have **30 requests available per day** (maximum **2 requests per minute**).\n\nI can look up incident references (e.g. `SB-2026-00412`), explain our 4-pillar Safety Grid scoring weights, or guide you through emergency reporting. Please note all platform statistics reflect **demonstration pilot data**.',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -187,7 +187,7 @@ export const AssistantPage: React.FC = () => {
               </span>
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl font-medium text-ink dark:text-paper tracking-tight">
-              Suraksha Assistant (Gemini AI)
+              Suraksha Assistant
             </h1>
             <p className="font-sans text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-xl">
               Context-grounded civic safety assistant. Look up hazard tickets, explore scoring methodology,

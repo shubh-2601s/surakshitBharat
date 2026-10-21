@@ -82,7 +82,7 @@ const SLIDES: Slide[] = [
         },
         {
           title: 'Executive AI Advisory',
-          desc: 'Suraksha AI powered by Google Gemini with strict fair-share rate limits and structured safety briefings.',
+          desc: 'Suraksha AI with strict fair-share rate limits and structured safety briefings.',
           icon: Bot
         }
       ],
@@ -358,7 +358,7 @@ const SLIDES: Slide[] = [
   {
     id: 9,
     title: 'Suraksha AI: Executive Intelligence Briefing',
-    subtitle: 'Senior National Safety Intelligence Advisor Powered by Gemini AI',
+    subtitle: 'Senior National Safety Intelligence Advisor',
     badge: 'ARTIFICIAL INTELLIGENCE & GOVERNANCE',
     category: 'AI Advisory',
     accent: '#10B981',
@@ -390,7 +390,7 @@ const SLIDES: Slide[] = [
       ]
     },
     speakerNotes:
-      "Suraksha AI is not just a standard chatbot; it is an executive national safety intelligence officer. Powered by Google Gemini, it provides clear, structured briefings referencing statutory acts like the Motor Vehicles Act and BIS standard codes. To prevent resource abuse, we built a custom sliding-window rate limiter enforcing 30 requests per user per day with real-time countdown meters."
+      "Suraksha AI is not just a standard chatbot; it is an executive national safety intelligence officer. It provides clear, structured briefings referencing statutory acts like the Motor Vehicles Act and BIS standard codes. To prevent resource abuse, we built a custom sliding-window rate limiter enforcing 30 requests per user per day with real-time countdown meters."
   },
   {
     id: 10,
@@ -459,7 +459,7 @@ const SLIDES: Slide[] = [
           icon: Database
         },
         {
-          title: 'AI Intelligence: Google Gemini 2.5 Flash',
+          title: 'AI Intelligence & Executive Advisory Engine',
           desc: 'Zero-secret frontend architecture utilizing serverless proxy routing and client-side sliding window quota limiters.',
           icon: Bot
         },
@@ -471,7 +471,7 @@ const SLIDES: Slide[] = [
       ]
     },
     speakerNotes:
-      "Our engineering architecture is built on React 18, Vite, and TailwindCSS with Framer Motion animations. We use Supabase with PostgreSQL and strict Row-Level Security policies. For intelligence, we integrate Google Gemini with sanitized server environment variables. Crucially, the platform includes a dual-layer neural translation engine, allowing instant translation into Hindi and Tamil for true national accessibility."
+      "Our engineering architecture is built on React 18, Vite, and TailwindCSS with Framer Motion animations. We use Supabase with PostgreSQL and strict Row-Level Security policies. For intelligence, we integrate sovereign executive AI models with sanitized server environment variables. Crucially, the platform includes a dual-layer neural translation engine, allowing instant translation into Hindi and Tamil for true national accessibility."
   },
   {
     id: 12,
