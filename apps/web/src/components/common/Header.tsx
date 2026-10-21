@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
               </span>
             </div>
             <span className="text-[10.5px] font-mono tracking-wider uppercase text-neutral-500 dark:text-neutral-400 -mt-0.5">
-              Measure. Route. Resolve.
+              {t.tagline}
             </span>
           </div>
         </Link>
@@ -76,63 +76,74 @@ export const Header: React.FC = () => {
             className="text-neutral-700 dark:text-neutral-200 hover:text-saffron dark:hover:text-saffron transition-colors flex items-center gap-1.5"
           >
             <Activity className="w-4 h-4 text-saffron" />
-            <span>Safety Grid</span>
+            <span>{t.safetyGrid}</span>
           </Link>
           <Link
             to="/manufacturers"
             className="text-neutral-700 dark:text-neutral-200 hover:text-pillar-manufacturing dark:hover:text-pillar-manufacturing transition-colors"
           >
-            Manufacturing
+            {t.manufacturers}
           </Link>
           <Link
             to="/transport"
             className="text-neutral-700 dark:text-neutral-200 hover:text-pillar-transport dark:hover:text-pillar-transport transition-colors"
           >
-            Transport
+            {t.transportSafety}
           </Link>
           <Link
             to="/digital-safety"
             className="text-neutral-700 dark:text-neutral-200 hover:text-pillar-digital dark:hover:text-pillar-digital transition-colors"
           >
-            Digital Safety
+            {t.digitalSafety}
           </Link>
           <Link
             to="/methodology"
             className="text-neutral-500 dark:text-neutral-400 hover:text-ink dark:hover:text-paper transition-colors font-mono text-xs"
           >
-            Methodology
+            {t.methodology}
           </Link>
         </nav>
 
         {/* Action Controls: Language, Theme, Auth / Dashboard */}
         <div className="flex items-center gap-3">
-          {/* Language Selector */}
+          {/* Enhanced Multi-Lingual Selector */}
           <div className="relative group">
             <button
               aria-label="Language selector"
-              className="flex items-center gap-1 px-2 py-1 rounded text-xs font-mono border border-paper-border dark:border-ink-border text-neutral-700 dark:text-neutral-300 hover:bg-paper-muted dark:hover:bg-ink-muted transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border border-paper-border dark:border-ink-border text-neutral-700 dark:text-neutral-300 hover:bg-paper-muted dark:hover:bg-ink-muted transition-colors shadow-sm"
             >
-              <Globe className="w-3.5 h-3.5 text-neutral-500" />
-              <span className="uppercase font-bold">{language}</span>
+              <Globe className="w-3.5 h-3.5 text-saffron" />
+              <span className="uppercase font-bold">
+                {language === 'en' ? 'EN' : language === 'hi' ? 'HI हिन्दी' : 'TA தமிழ்'}
+              </span>
             </button>
-            <div className="absolute right-0 mt-1 hidden group-hover:flex flex-col w-24 bg-paper-card dark:bg-ink-card border border-paper-border dark:border-ink-border rounded shadow-lg p-1 text-xs font-mono z-50">
+            <div className="absolute right-0 mt-1 hidden group-hover:flex flex-col w-36 bg-paper-card dark:bg-ink-card border border-paper-border dark:border-ink-border rounded-xl shadow-2xl p-1 text-xs font-mono z-50">
               <button
                 onClick={() => setLanguage('en')}
-                className={`text-left px-2 py-1 rounded hover:bg-saffron/15 ${language === 'en' ? 'font-bold text-saffron' : ''}`}
+                className={`text-left px-3 py-2 rounded-lg hover:bg-saffron/15 transition-colors flex items-center justify-between ${
+                  language === 'en' ? 'font-bold text-saffron bg-saffron/10' : 'text-neutral-700 dark:text-neutral-300'
+                }`}
               >
-                English
+                <span>English</span>
+                <span className="text-[10px] text-neutral-400">EN</span>
               </button>
               <button
                 onClick={() => setLanguage('hi')}
-                className={`text-left px-2 py-1 rounded hover:bg-saffron/15 ${language === 'hi' ? 'font-bold text-saffron' : ''}`}
+                className={`text-left px-3 py-2 rounded-lg hover:bg-saffron/15 transition-colors flex items-center justify-between ${
+                  language === 'hi' ? 'font-bold text-saffron bg-saffron/10' : 'text-neutral-700 dark:text-neutral-300'
+                }`}
               >
-                हिन्दी (HI)
+                <span>हिन्दी</span>
+                <span className="text-[10px] text-neutral-400">HI</span>
               </button>
               <button
                 onClick={() => setLanguage('ta')}
-                className={`text-left px-2 py-1 rounded hover:bg-saffron/15 ${language === 'ta' ? 'font-bold text-saffron' : ''}`}
+                className={`text-left px-3 py-2 rounded-lg hover:bg-saffron/15 transition-colors flex items-center justify-between ${
+                  language === 'ta' ? 'font-bold text-saffron bg-saffron/10' : 'text-neutral-700 dark:text-neutral-300'
+                }`}
               >
-                தமிழ் (TA)
+                <span>தமிழ்</span>
+                <span className="text-[10px] text-neutral-400">TA</span>
               </button>
             </div>
           </div>

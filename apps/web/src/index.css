@@ -102,3 +102,32 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 138, 31, 0.6);
 }
+
+/* Hide Google Translate top bar and branding banner while preserving seamless translation */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+body {
+  top: 0px !important;
+  position: static !important;
+}
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+.skiptranslate > iframe {
+  display: none !important;
+}
+
