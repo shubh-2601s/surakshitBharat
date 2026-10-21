@@ -144,6 +144,12 @@ export const Header: React.FC = () => {
           >
             {t.methodology}
           </Link>
+          <Link
+            to="/presentation"
+            className="text-saffron hover:text-amber-500 font-mono text-xs flex items-center gap-1 font-bold px-2 py-1 rounded bg-saffron/10 border border-saffron/30 hover:bg-saffron/20 transition-all"
+          >
+            <span>PPT Deck</span>
+          </Link>
         </nav>
 
         {/* Action Controls: Language, Theme, Auth, Mobile Menu Toggle */}
@@ -405,6 +411,20 @@ export const Header: React.FC = () => {
                     <span>{t.methodology}</span>
                   </div>
                   <span className="text-[9px] text-neutral-400">RUBRIC</span>
+                </Link>
+
+                <Link
+                  to="/presentation"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-2.5 rounded-lg text-saffron hover:bg-saffron/15 transition-colors bg-saffron/10 border border-saffron/30"
+                >
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-4 h-4 text-saffron shrink-0" />
+                    <span className="font-bold">Slide Presentation (PPT)</span>
+                  </div>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-saffron text-ink font-bold">
+                    DECK
+                  </span>
                 </Link>
               </div>
 

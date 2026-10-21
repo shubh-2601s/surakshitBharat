@@ -17,6 +17,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { AssistantPage } from './pages/AssistantPage';
+import { PresentationPage } from './pages/PresentationPage';
 import { MobileBottomBar } from './components/common/MobileBottomBar';
 import { Bot } from 'lucide-react';
 
@@ -59,6 +60,8 @@ export const App: React.FC = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/assistant" element={<AssistantPage />} />
+              <Route path="/presentation" element={<PresentationPage />} />
+              <Route path="/slides" element={<PresentationPage />} />
               <Route path="*" element={<LandingPage />} />
             </Routes>
           </motion.div>
