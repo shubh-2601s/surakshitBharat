@@ -24,6 +24,15 @@ export const LandingPage: React.FC = () => {
       {/* 5. Direct Citizen Action Banner */}
       <section className="relative w-full py-16 px-4 sm:px-6 lg:px-8 bg-paper-card dark:bg-ink-card border-b border-hairline border-paper-border dark:border-ink-border">
         <div className="max-w-5xl mx-auto rounded-3xl bg-gradient-to-br from-navy via-navy-deep to-ink p-8 sm:p-12 text-white border border-hairline border-saffron/40 shadow-2xl relative overflow-hidden">
+          {/* Real Indian Landmark Background: India Gate Monument */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/india-gate-hero.jpg"
+              alt="India Gate National Monument"
+              className="w-full h-full object-cover object-center opacity-45 brightness-90 contrast-120"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/65" />
+          </div>
           <div className="absolute top-0 right-0 w-80 h-80 bg-saffron/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">

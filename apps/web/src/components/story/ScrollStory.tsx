@@ -142,10 +142,22 @@ export const ScrollStory: React.FC = () => {
   const currentStep = STEPS.find((s) => s.id === activeStepId) || STEPS[0];
 
   return (
-    <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 border-b border-hairline border-paper-border dark:border-ink-border bg-paper-card/40 dark:bg-ink-card/40">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 border-b border-hairline border-paper-border dark:border-ink-border bg-ink overflow-hidden">
+      {/* Background Indian Landmark: Indian Smart City Civic Infrastructure */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <img
+          src="/civic-smartcity-bg.jpg"
+          alt="Indian Smart City Civic Infrastructure & Metro Viaduct"
+          className="w-full h-full object-cover object-center opacity-80 dark:opacity-75 brightness-95 contrast-120"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/45 to-ink/85" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/65" />
+        <div className="absolute inset-0 bg-grain opacity-20" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-hairline border-paper-border dark:border-ink-border">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-hairline border-white/15">
           <div>
             <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-saffron mb-2">
               <span className="w-2 h-2 rounded-full bg-saffron" />

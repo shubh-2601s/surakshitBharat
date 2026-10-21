@@ -65,15 +65,15 @@ export const RegisterPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden py-16 px-4">
-      {/* Subtle Central Secretariat Sandstone Facade Background */}
+      {/* Central Secretariat Sandstone Facade Background - Vivid & Atmospheric */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
           src="/secretariat-bg.jpg"
           alt="Central Secretariat New Delhi at Dusk"
-          className="w-full h-full object-cover object-center opacity-15 dark:opacity-25 brightness-85 contrast-120"
+          className="w-full h-full object-cover object-center opacity-90 dark:opacity-85 brightness-100 contrast-115"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/95 to-paper dark:from-ink/85 dark:via-ink/95 dark:to-ink" />
-        <div className="absolute inset-0 bg-grain" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/55 via-paper/70 to-paper/95 dark:from-ink/55 via-ink/70 to-ink/95" />
+        <div className="absolute inset-0 bg-grain pointer-events-none opacity-20" />
       </div>
 
       <div className="relative z-10 max-w-2xl w-full">

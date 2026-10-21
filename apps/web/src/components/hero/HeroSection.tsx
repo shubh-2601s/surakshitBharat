@@ -22,18 +22,19 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-[94vh] w-full flex flex-col justify-center overflow-hidden border-b border-hairline border-paper-border dark:border-ink-border bg-ink">
-      {/* Background Image: India Gate Twilight at Dusk */}
+      {/* Background Image: India Gate Twilight at Dusk - Vivid & Atmospheric */}
       <div className="absolute inset-0 z-0">
         <img
           src="/india-gate-hero.jpg"
           alt="India Gate Monument New Delhi at Twilight"
-          className="w-full h-full object-cover object-center opacity-40 md:opacity-50 brightness-90 contrast-110"
+          className="w-full h-full object-cover object-center brightness-95 contrast-110 opacity-90"
         />
-        {/* Cinematic Vignette & Radial Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/65 dark:from-ink dark:via-ink/90 dark:to-ink/75" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/70" />
-        <div className="absolute inset-0 bg-grain pointer-events-none" />
+        {/* Cinematic Vignette - Soft so India Gate is clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/40 to-ink/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
+        <div className="absolute inset-0 bg-grain pointer-events-none opacity-40" />
       </div>
+
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">

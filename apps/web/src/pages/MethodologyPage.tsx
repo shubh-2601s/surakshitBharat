@@ -6,15 +6,15 @@ import { METHODOLOGY_WEIGHTS } from '@surakshit-bharat/shared';
 export const MethodologyPage: React.FC = () => {
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Subtle Central Secretariat Sandstone Facade Background */}
+      {/* Central Secretariat Architecture Background - Vivid & Atmospheric */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
           src="/secretariat-bg.jpg"
           alt="Central Secretariat Architecture Background"
-          className="w-full h-full object-cover object-center opacity-10 dark:opacity-20 brightness-90 contrast-125"
+          className="w-full h-full object-cover object-center opacity-75 dark:opacity-65 brightness-95 contrast-115"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/95 to-paper dark:from-ink/85 dark:via-ink/95 dark:to-ink" />
-        <div className="absolute inset-0 bg-grain" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/88 to-paper dark:from-ink/80 dark:via-ink/88 dark:to-ink" />
+        <div className="absolute inset-0 bg-grain pointer-events-none opacity-30" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

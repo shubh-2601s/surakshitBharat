@@ -106,11 +106,23 @@ export const SafetyGridPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-paper-border dark:border-ink-border">
-        <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-saffron uppercase tracking-widest mb-2">
+    <div className="relative min-h-[90vh] w-full overflow-hidden">
+      {/* Background Indian Landmark: Central Secretariat & Sandstone Colonnade */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <img
+          src="/secretariat-bg.jpg"
+          alt="Central Secretariat New Delhi"
+          className="w-full h-full object-cover object-top opacity-90 dark:opacity-85 brightness-100 contrast-115"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/60 via-paper/75 to-paper/95 dark:from-ink/60 via-ink/75 to-ink/95" />
+        <div className="absolute inset-0 bg-grain pointer-events-none opacity-20" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {/* Page Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-paper-border dark:border-ink-border">
+          <div>
+            <div className="flex items-center gap-2 font-mono text-xs text-saffron uppercase tracking-widest mb-2">
             <span className="w-2 h-2 rounded-full bg-saffron animate-pulse" />
             <span>Phase 2 • Telemetry Grid & Analytical Benchmarking</span>
             <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/15 text-signalred text-[10px] border border-signalred/30">
@@ -449,6 +461,7 @@ export const SafetyGridPage: React.FC = () => {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 };

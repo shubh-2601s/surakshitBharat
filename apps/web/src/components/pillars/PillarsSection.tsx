@@ -19,7 +19,7 @@ export const PillarsSection: React.FC = () => {
   const [qrScanned, setQrScanned] = useState(false);
 
   return (
-    <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 border-b border-hairline border-paper-border dark:border-ink-border">
+    <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8 border-b border-hairline border-paper-border dark:border-ink-border bg-paper/60 dark:bg-ink/60">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
@@ -39,16 +39,26 @@ export const PillarsSection: React.FC = () => {
 
         {/* The 4 Distinct Panels Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Panel 1: Community Safety (Saffron) */}
-          <div className="relative rounded-2xl bg-paper-card dark:bg-ink-card border border-hairline border-[#FF8A1F]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#FF8A1F] transition-all">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#FF8A1F]/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Panel 1: Community Safety (Saffron) with Indian Smart City Background */}
+          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#FF8A1F]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#FF8A1F] transition-all shadow-xl">
+            {/* Photographic Backdrop */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
+              <img
+                src="/civic-smartcity-bg.jpg"
+                alt="Indian Smart City Civic Infrastructure"
+                className="w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-all duration-500 scale-100 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper-card via-paper-card/85 to-paper-card/65 dark:from-ink-card dark:via-ink-card/85 dark:to-ink-card/65" />
+            </div>
 
-            <div>
+            <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-xs font-bold text-[#FF8A1F] uppercase tracking-wider px-2.5 py-1 rounded bg-[#FF8A1F]/15 border border-[#FF8A1F]/30">
+                <span className="font-mono text-xs font-bold text-[#FF8A1F] uppercase tracking-wider px-2.5 py-1 rounded bg-[#FF8A1F]/15 border border-[#FF8A1F]/30 backdrop-blur-md">
                   Pillar 01 • Community Safety
                 </span>
-                <Users className="w-6 h-6 text-[#FF8A1F]" />
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#FF8A1F]/30 backdrop-blur-md">
+                  <Users className="w-5 h-5 text-[#FF8A1F]" />
+                </div>
               </div>
 
               <h3 className="font-serif text-2xl sm:text-3xl font-medium text-ink dark:text-paper mb-3">
@@ -60,7 +70,7 @@ export const PillarsSection: React.FC = () => {
               </p>
 
               {/* Mini Visual: Hazard Triage Queue Preview */}
-              <div className="p-4 rounded-xl bg-paper dark:bg-ink border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 space-y-2">
+              <div className="p-4 rounded-xl bg-paper/85 dark:bg-ink/85 border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 space-y-2 backdrop-blur-md shadow-sm">
                 <div className="flex items-center justify-between text-[11px] text-neutral-400 pb-2 border-b border-paper-border dark:border-ink-border">
                   <span>LIVE TICKET INGESTION</span>
                   <span className="text-[#FF8A1F] font-bold">142 Active in Pilot</span>
@@ -94,23 +104,33 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/report/new"
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF8A1F] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#FF8A1F] hover:underline"
             >
               <span>Submit Local Hazard</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {/* Panel 2: Local Manufacturing (Teal) */}
-          <div className="relative rounded-2xl bg-paper-card dark:bg-ink-card border border-hairline border-[#0F9D8A]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#0F9D8A] transition-all">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#0F9D8A]/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Panel 2: Local Manufacturing (Teal) with Certification Lab Background */}
+          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#0F9D8A]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#0F9D8A] transition-all shadow-xl">
+            {/* Photographic Backdrop */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
+              <img
+                src="/manufacturing-bg.jpg"
+                alt="Indian Precision Quality Certification Lab"
+                className="w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-all duration-500 scale-100 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper-card via-paper-card/85 to-paper-card/65 dark:from-ink-card dark:via-ink-card/85 dark:to-ink-card/65" />
+            </div>
 
-            <div>
+            <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-xs font-bold text-[#0F9D8A] uppercase tracking-wider px-2.5 py-1 rounded bg-[#0F9D8A]/15 border border-[#0F9D8A]/30">
+                <span className="font-mono text-xs font-bold text-[#0F9D8A] uppercase tracking-wider px-2.5 py-1 rounded bg-[#0F9D8A]/15 border border-[#0F9D8A]/30 backdrop-blur-md">
                   Pillar 02 • Local Manufacturing
                 </span>
-                <Factory className="w-6 h-6 text-[#0F9D8A]" />
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#0F9D8A]/30 backdrop-blur-md">
+                  <Factory className="w-5 h-5 text-[#0F9D8A]" />
+                </div>
               </div>
 
               <h3 className="font-serif text-2xl sm:text-3xl font-medium text-ink dark:text-paper mb-3">
@@ -122,7 +142,7 @@ export const PillarsSection: React.FC = () => {
               </p>
 
               {/* Mini Visual: Interactive QR Scan Demo */}
-              <div className="p-4 rounded-xl bg-paper dark:bg-ink border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6">
+              <div className="p-4 rounded-xl bg-paper/85 dark:bg-ink/85 border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 backdrop-blur-md shadow-sm">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[11px] text-neutral-400">CRYPTOGRAPHIC BATCH CHECK</span>
                   <button
@@ -134,7 +154,7 @@ export const PillarsSection: React.FC = () => {
                 </div>
 
                 {qrScanned ? (
-                  <div className="space-y-1.5 p-3 rounded-lg bg-[#0F9D8A]/10 border border-[#0F9D8A]/40">
+                  <div className="space-y-1.5 p-3 rounded-lg bg-[#0F9D8A]/15 border border-[#0F9D8A]/40">
                     <div className="flex items-center gap-1.5 text-indiagreen font-bold">
                       <CheckCircle className="w-4 h-4 text-[#0F9D8A]" />
                       <span>BATCH VERIFIED: BIS IS 694:2010</span>
@@ -164,23 +184,33 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/manufacturers"
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0F9D8A] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0F9D8A] hover:underline"
             >
               <span>Explore Public Registry</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {/* Panel 3: Transport Safety (Amber-Yellow) */}
-          <div className="relative rounded-2xl bg-paper-card dark:bg-ink-card border border-hairline border-[#F2B705]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#F2B705] transition-all">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#F2B705]/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Panel 3: Transport Safety (Amber-Yellow) with Indian Expressway Background */}
+          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#F2B705]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#F2B705] transition-all shadow-xl">
+            {/* Photographic Backdrop */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
+              <img
+                src="/expressway-hero.jpg"
+                alt="Indian National Expressway Night Transport Logistics"
+                className="w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-all duration-500 scale-100 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper-card via-paper-card/85 to-paper-card/65 dark:from-ink-card dark:via-ink-card/85 dark:to-ink-card/65" />
+            </div>
 
-            <div>
+            <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-xs font-bold text-[#F2B705] uppercase tracking-wider px-2.5 py-1 rounded bg-[#F2B705]/15 border border-[#F2B705]/30">
+                <span className="font-mono text-xs font-bold text-[#F2B705] uppercase tracking-wider px-2.5 py-1 rounded bg-[#F2B705]/15 border border-[#F2B705]/30 backdrop-blur-md">
                   Pillar 03 • Transport Safety
                 </span>
-                <Car className="w-6 h-6 text-[#F2B705]" />
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#F2B705]/30 backdrop-blur-md">
+                  <Car className="w-5 h-5 text-[#F2B705]" />
+                </div>
               </div>
 
               <h3 className="font-serif text-2xl sm:text-3xl font-medium text-ink dark:text-paper mb-3">
@@ -191,15 +221,14 @@ export const PillarsSection: React.FC = () => {
                 audits, and live ambulance dispatch response times across districts.
               </p>
 
-              {/* Mini Visual: Animated Route Corridor Line */}
-              <div className="p-4 rounded-xl bg-paper dark:bg-ink border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6">
+              {/* Mini Visual: Route Telemetry */}
+              <div className="p-4 rounded-xl bg-paper/85 dark:bg-ink/85 border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 backdrop-blur-md shadow-sm">
                 <div className="flex items-center justify-between text-[11px] text-neutral-400 mb-2">
                   <span>CORRIDOR AUDIT: NH-48 (MUMBAI-PUNE)</span>
                   <span className="text-[#F2B705] font-bold">Risk: Moderate (72/100)</span>
                 </div>
 
                 <div className="relative h-10 w-full flex items-center">
-                  {/* Highway Line SVG with moving beacon */}
                   <svg className="w-full h-8" viewBox="0 0 300 30" fill="none">
                     <path
                       d="M 10 15 Q 75 5 150 20 T 290 15"
@@ -213,7 +242,6 @@ export const PillarsSection: React.FC = () => {
                       strokeWidth="3"
                       strokeDasharray="10 8"
                     />
-                    {/* Pulsing warning node */}
                     <circle cx="150" cy="20" r="5" fill="#D7263D">
                       <animate
                         attributeName="r"
@@ -234,23 +262,33 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/transport"
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F2B705] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F2B705] hover:underline"
             >
               <span>View Ranked Road Stretches</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {/* Panel 4: Digital Safety (Indigo) */}
-          <div className="relative rounded-2xl bg-paper-card dark:bg-ink-card border border-hairline border-[#4C5BD4]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#4C5BD4] transition-all">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#4C5BD4]/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Panel 4: Digital Safety (Indigo) with Cyber Command Center Background */}
+          <div className="relative rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-[#4C5BD4]/30 p-8 flex flex-col justify-between overflow-hidden group hover:border-[#4C5BD4] transition-all shadow-xl">
+            {/* Photographic Backdrop */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-3xl">
+              <img
+                src="/digital-safety-bg.jpg"
+                alt="Indian National Cybersecurity Command Operations"
+                className="w-full h-full object-cover opacity-25 group-hover:opacity-40 transition-all duration-500 scale-100 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper-card via-paper-card/85 to-paper-card/65 dark:from-ink-card dark:via-ink-card/85 dark:to-ink-card/65" />
+            </div>
 
-            <div>
+            <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-xs font-bold text-[#4C5BD4] uppercase tracking-wider px-2.5 py-1 rounded bg-[#4C5BD4]/15 border border-[#4C5BD4]/30">
+                <span className="font-mono text-xs font-bold text-[#4C5BD4] uppercase tracking-wider px-2.5 py-1 rounded bg-[#4C5BD4]/15 border border-[#4C5BD4]/30 backdrop-blur-md">
                   Pillar 04 • Digital Safety
                 </span>
-                <ShieldAlert className="w-6 h-6 text-[#4C5BD4]" />
+                <div className="p-2 rounded-xl bg-paper-card/80 dark:bg-ink-card/80 border border-[#4C5BD4]/30 backdrop-blur-md">
+                  <ShieldAlert className="w-5 h-5 text-[#4C5BD4]" />
+                </div>
               </div>
 
               <h3 className="font-serif text-2xl sm:text-3xl font-medium text-ink dark:text-paper mb-3">
@@ -262,7 +300,7 @@ export const PillarsSection: React.FC = () => {
               </p>
 
               {/* Mini Visual: Active Cyber Threat Advisory */}
-              <div className="p-4 rounded-xl bg-paper dark:bg-ink border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 space-y-2">
+              <div className="p-4 rounded-xl bg-paper/85 dark:bg-ink/85 border border-hairline border-paper-border dark:border-ink-border font-mono text-xs mb-6 space-y-2 backdrop-blur-md shadow-sm">
                 <div className="flex items-center justify-between text-[11px] text-neutral-400 pb-2 border-b border-paper-border dark:border-ink-border">
                   <span className="flex items-center gap-1.5 text-indiagreen">
                     <span className="w-2 h-2 rounded-full bg-indiagreen animate-ping" />
@@ -284,7 +322,7 @@ export const PillarsSection: React.FC = () => {
 
             <Link
               to="/digital-safety"
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#4C5BD4] hover:underline"
+              className="relative z-10 inline-flex items-center gap-2 text-xs font-mono font-bold text-[#4C5BD4] hover:underline"
             >
               <span>Explore Advisories & Helplines</span>
               <ArrowRight className="w-4 h-4" />

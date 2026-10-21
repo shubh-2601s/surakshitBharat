@@ -33,15 +33,15 @@ export const ReportHazardPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Subtle Indian Smart City Infrastructure Background */}
+      {/* Indian Smart City Infrastructure Background - Vivid & Atmospheric */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
           src="/civic-smartcity-bg.jpg"
           alt="Indian Smart City Boulevard and Infrastructure"
-          className="w-full h-full object-cover object-center opacity-10 dark:opacity-20 brightness-90 contrast-125"
+          className="w-full h-full object-cover object-center opacity-85 dark:opacity-80 brightness-95 contrast-115"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/95 to-paper dark:from-ink/85 dark:via-ink/95 dark:to-ink" />
-        <div className="absolute inset-0 bg-grain" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/60 via-paper/75 to-paper/95 dark:from-ink/60 via-ink/75 to-ink/95" />
+        <div className="absolute inset-0 bg-grain pointer-events-none opacity-20" />
       </div>
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
