@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build --workspace=@surakshit-bharat/web",
+  "buildCommand": "npm run build",
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
   "headers": [
