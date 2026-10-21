@@ -16,14 +16,15 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { AssistantPage } from './pages/AssistantPage';
-import { Bot, Sparkles } from 'lucide-react';
+import { MobileBottomBar } from './components/common/MobileBottomBar';
+import { Bot } from 'lucide-react';
 
 export const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-paper dark:bg-ink text-ink dark:text-paper selection:bg-saffron selection:text-white transition-colors">
       <Header />
 
-      <main className="flex-1 w-full">
+      <main className="flex-1 w-full pb-16 md:pb-0">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/safety-grid" element={<SafetyGridPage />} />
@@ -47,19 +48,22 @@ export const App: React.FC = () => {
 
       <Footer />
 
-      {/* Floating Suraksha Assistant Widget Button */}
+      {/* Floating Suraksha Assistant Widget Button (Desktop/Tablet) */}
       <Link
         to="/assistant"
         aria-label="Open Suraksha Assistant AI"
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-4 py-3 rounded-full bg-navy text-white dark:bg-paper-card dark:text-ink font-mono text-xs font-bold border border-hairline border-saffron/50 shadow-2xl hover:scale-105 hover:shadow-control-room transition-all group"
+        className="hidden md:flex fixed bottom-6 right-6 z-40 items-center gap-2.5 px-4 py-3 rounded-full bg-navy text-white dark:bg-paper-card dark:text-ink font-mono text-xs font-bold border border-hairline border-saffron/50 shadow-2xl hover:scale-105 hover:shadow-control-room transition-all group"
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-saffron opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-saffron"></span>
         </span>
         <Bot className="w-4 h-4 text-saffron group-hover:rotate-12 transition-transform" />
-        <span className="hidden sm:inline">Suraksha Assistant</span>
+        <span>Suraksha Assistant</span>
       </Link>
+
+      {/* Modern Fixed Mobile Bottom Navigation Bar (Smartphones) */}
+      <MobileBottomBar />
     </div>
   );
 };
