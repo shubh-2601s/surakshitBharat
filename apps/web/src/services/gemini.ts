@@ -51,7 +51,7 @@ export async function sendAssistantMessage(
     console.warn('Gemini generateContent error, attempting fallback model:', err);
     try {
       const response = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-flash-latest',
         contents: [{ role: 'user', parts: [{ text: `${SURAKSHA_SYSTEM_PROMPT}\n\nUser Question: ${userPrompt}` }] }]
       });
       return response.text || 'Operational. How can I assist with your civic safety report?';
