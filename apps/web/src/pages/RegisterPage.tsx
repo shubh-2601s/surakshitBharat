@@ -64,76 +64,88 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
-      {/* Editorial Header */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron/15 text-saffron border border-saffron/30 font-mono text-xs font-bold mb-3">
-          <Shield className="w-3.5 h-3.5" />
-          <span>Surakshit Bharat Access Registry</span>
-        </div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink dark:text-paper tracking-tight">
-          Create National Intelligence Account
-        </h1>
-        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 font-sans mt-2 max-w-lg mx-auto">
-          Join the unified safety mesh. Report civic hazards, verify manufacturing batch compliance,
-          or manage municipal dispatch.
-        </p>
+    <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden py-16 px-4">
+      {/* Subtle Central Secretariat Sandstone Facade Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <img
+          src="/secretariat-bg.jpg"
+          alt="Central Secretariat New Delhi at Dusk"
+          className="w-full h-full object-cover object-center opacity-15 dark:opacity-25 brightness-85 contrast-120"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/85 via-paper/95 to-paper dark:from-ink/85 dark:via-ink/95 dark:to-ink" />
+        <div className="absolute inset-0 bg-grain" />
       </div>
 
-      {/* Main Card */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-paper-card dark:bg-ink-card border border-hairline border-paper-border dark:border-ink-border shadow-2xl">
-        {/* Role Selector Tabs */}
-        <div className="mb-8">
-          <label className="block text-neutral-700 dark:text-neutral-300 font-mono text-xs uppercase tracking-wider mb-2 font-bold">
-            Select Your Account Scope / Role:
-          </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs">
-            <button
-              type="button"
-              onClick={() => setRole('citizen')}
-              className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
-                role === 'citizen'
-                  ? 'bg-saffron text-ink font-bold border-saffron shadow-sm'
-                  : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
-              }`}
-            >
-              <User className="w-4 h-4" />
-              <span>Citizen</span>
-            </button>
+      <div className="relative z-10 max-w-2xl w-full">
+        {/* Editorial Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron/15 text-saffron border border-saffron/30 font-mono text-xs font-bold mb-3 backdrop-blur-md">
+            <Shield className="w-3.5 h-3.5" />
+            <span>Surakshit Bharat Access Registry</span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink dark:text-paper tracking-tight">
+            Create National Intelligence Account
+          </h1>
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 font-sans mt-2 max-w-lg mx-auto">
+            Join the unified safety mesh. Report civic hazards, verify manufacturing batch compliance,
+            or manage municipal dispatch.
+          </p>
+        </div>
 
-            <button
-              type="button"
-              onClick={() => setRole('manufacturer')}
-              className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
-                role === 'manufacturer'
-                  ? 'bg-[#0F9D8A] text-white font-bold border-[#0F9D8A] shadow-sm'
-                  : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
-              }`}
-            >
-              <Factory className="w-4 h-4" />
-              <span>Manufacturer</span>
-            </button>
+        {/* Main Card */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border shadow-2xl backdrop-blur-md">
+          {/* Role Selector Tabs */}
+          <div className="mb-8">
+            <label className="block text-neutral-700 dark:text-neutral-300 font-mono text-xs uppercase tracking-wider mb-2 font-bold">
+              Select Your Account Scope / Role:
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs">
+              <button
+                type="button"
+                onClick={() => setRole('citizen')}
+                className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
+                  role === 'citizen'
+                    ? 'bg-saffron text-ink font-bold border-saffron shadow-sm'
+                    : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
+                }`}
+              >
+                <User className="w-4 h-4" />
+                <span>Citizen</span>
+              </button>
 
-            <button
-              type="button"
-              onClick={() => setRole('authority')}
-              className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
-                role === 'authority'
-                  ? 'bg-navy text-white font-bold border-navy dark:border-saffron shadow-sm'
-                  : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
-              }`}
-            >
-              <Building2 className="w-4 h-4" />
-              <span>Authority</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => setRole('manufacturer')}
+                className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
+                  role === 'manufacturer'
+                    ? 'bg-[#0F9D8A] text-white font-bold border-[#0F9D8A] shadow-sm'
+                    : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
+                }`}
+              >
+                <Factory className="w-4 h-4" />
+                <span>Manufacturer</span>
+              </button>
 
-            <button
-              type="button"
-              onClick={() => setRole('admin')}
-              className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
-                role === 'admin'
-                  ? 'bg-signalred text-white font-bold border-signalred shadow-sm'
-                  : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
+              <button
+                type="button"
+                onClick={() => setRole('authority')}
+                className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
+                  role === 'authority'
+                    ? 'bg-navy text-white font-bold border-navy dark:border-saffron shadow-sm'
+                    : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
+                }`}
+              >
+                <Building2 className="w-4 h-4" />
+                <span>Authority</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setRole('admin')}
+                className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 ${
+                  role === 'admin'
+                    ? 'bg-signalred text-white font-bold border-signalred shadow-sm'
+                    : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper'
               }`}
             >
               <Shield className="w-4 h-4" />
@@ -328,5 +340,8 @@ export const RegisterPage: React.FC = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
+
+
