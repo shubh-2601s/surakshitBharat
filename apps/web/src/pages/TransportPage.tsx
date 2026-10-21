@@ -1,43 +1,48 @@
 import React from 'react';
-import { Car, AlertTriangle, Clock, MapPin, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Car, AlertTriangle, Clock, MapPin, ShieldAlert, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const DEMO_CORRIDORS = [
   { id: 'C-01', name: 'NH-44 Corridor (Delhi-Agra Stretch)', length: '198 km', riskScore: 68, status: 'High Alert', blackspots: 4, avgEms: '12.4 min', district: 'Mathura & Agra, UP' },
   { id: 'C-02', name: 'NH-48 Corridor (Mumbai-Pune Expressway)', length: '94 km', riskScore: 78, status: 'Monitored', blackspots: 1, avgEms: '10.8 min', district: 'Pune & Raigad, MH' },
   { id: 'C-03', name: 'NH-66 Coastal Corridor (Panvel-Goa)', length: '475 km', riskScore: 71, status: 'Active Works', blackspots: 6, avgEms: '18.2 min', district: 'Ratnagiri, MH' },
-  { id: 'C-04', name: 'NH-27 East-West Axis (Porbandar-Silchar)', length: '320 km', riskScore: 74, status: 'Moderate', blackspots: 3, avgEms: '15.6 min', district: 'Purnia, BR' },
+  { id: 'C-04', name: 'Delhi-Mumbai Expressway (Sohna-Dausa Sector)', length: '246 km', riskScore: 84, status: 'State of Art', blackspots: 0, avgEms: '8.4 min', district: 'Gurugram & Dausa' },
 ];
 
 export const TransportPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-paper-border dark:border-ink-border">
-        <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-[#F2B705] uppercase tracking-widest mb-2">
-            <Car className="w-4 h-4" />
-            <span>Pillar 03 • National Transport Telemetry</span>
-            <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/15 text-signalred text-[10px] border border-signalred/30">
-              DEMO DATA
-            </span>
+      {/* Visual Hero Banner with Indian Expressway Photograph */}
+      <div className="relative rounded-3xl overflow-hidden mb-10 border border-hairline border-paper-border dark:border-ink-border shadow-2xl h-72 sm:h-80 flex items-end">
+        <img
+          src="/expressway-hero.jpg"
+          alt="Modern Indian National Highway Corridor"
+          className="absolute inset-0 w-full h-full object-cover brightness-75 contrast-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
+        
+        <div className="relative z-10 p-6 sm:p-8 w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F2B705]/20 text-[#F2B705] border border-[#F2B705]/40 font-mono text-xs font-bold mb-2 backdrop-blur-md">
+              <Car className="w-3.5 h-3.5" />
+              <span>National Arterial Safety & Telemetry Corridors</span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              Transport Corridors & Road-Risk Monitoring
+            </h1>
+            <p className="font-sans text-xs sm:text-sm text-neutral-300 max-w-xl mt-1">
+              Live blackspot remediation on Golden Quadrilateral and National Expressways, emergency ambulance dispatch speeds, and surface audit telemetry.
+            </p>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-medium text-ink dark:text-paper tracking-tight">
-            High-Risk Highway Stretches & Corridor Audit
-          </h1>
-          <p className="font-sans text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-2xl">
-            Real-time tracking of dangerous arterial road corridors, verified blackspot remediation,
-            and aggregate emergency 108/112 EMS response intervals.
-          </p>
-        </div>
 
-        <Link
-          to="/report/new"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-saffron hover:bg-saffron-muted text-ink font-semibold text-xs font-mono shadow-sm"
-        >
-          <AlertTriangle className="w-3.5 h-3.5" />
-          <span>Report Road Hazard</span>
-        </Link>
+          <Link
+            to="/report/new"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-saffron hover:bg-saffron-muted text-ink font-bold font-mono text-xs shadow-md shrink-0"
+          >
+            <AlertTriangle className="w-4 h-4" />
+            <span>Report Road Hazard</span>
+          </Link>
+        </div>
       </div>
 
       {/* Corridor Table & Cards */}
