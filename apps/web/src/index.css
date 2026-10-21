@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-page: #F4EFE6;
+    --text-primary: #0E1A2B;
+    --border-color: #D8CEBE;
+    --card-bg: #FCFAF6;
+    --card-border: #E5DCCE;
+    --accent-saffron: #FF8A1F;
+    --accent-green: #138808;
+    --accent-red: #D7263D;
+  }
+
+  .dark {
+    --bg-page: #0E1A2B;
+    --text-primary: #F4EFE6;
+    --border-color: #22354F;
+    --card-bg: #132238;
+    --card-border: #1E3352;
+    --accent-saffron: #FF8A1F;
+    --accent-green: #138808;
+    --accent-red: #D7263D;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+  }
+}
+
+/* Custom subtle noise and grain texture overlay */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Diagonal hatch pattern for missing / insufficient data */
+.bg-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(142, 150, 163, 0.15),
+    rgba(142, 150, 163, 0.15) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.dark .bg-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.1) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* Hairline borders */
+.border-hairline {
+  border-width: 0.5px;
+}
+
+/* Glow effects */
+.glow-saffron {
+  box-shadow: 0 0 20px -2px rgba(255, 138, 31, 0.35);
+}
+
+.glow-teal {
+  box-shadow: 0 0 20px -2px rgba(15, 157, 138, 0.35);
+}
+
+.glow-amber {
+  box-shadow: 0 0 20px -2px rgba(242, 183, 5, 0.35);
+}
+
+.glow-indigo {
+  box-shadow: 0 0 20px -2px rgba(76, 91, 212, 0.35);
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(142, 150, 163, 0.35);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 138, 31, 0.6);
+}
