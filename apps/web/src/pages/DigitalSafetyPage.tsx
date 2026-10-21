@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ShieldAlert, AlertTriangle, ExternalLink, PhoneCall, CheckCircle, Search, ShieldCheck } from 'lucide-react';
 
 const DEMO_ADVISORIES = [
@@ -25,9 +26,18 @@ export const DigitalSafetyPage: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-white/20">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-white/20"
+        >
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/80 border border-[#4C5BD4]/40 font-mono text-xs text-[#8090FF] uppercase tracking-wider mb-3 backdrop-blur-md shadow-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4C5BD4] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4C5BD4]" />
+              </span>
               <ShieldAlert className="w-4 h-4 text-[#8090FF]" />
               <span className="font-semibold">Pillar 04 • National Digital Vigilance</span>
               <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/20 text-red-300 text-[10px] border border-signalred/40 ml-1">
@@ -45,30 +55,44 @@ export const DigitalSafetyPage: React.FC = () => {
 
           <a
             href="tel:1930"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-signalred hover:bg-signalred/90 text-white font-mono text-xs font-bold shadow-lg shadow-red-900/30"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-signalred hover:bg-signalred/90 text-white font-mono text-xs font-bold shadow-lg shadow-red-900/30 hover:scale-105 transition-all group"
           >
             <PhoneCall className="w-4 h-4 animate-bounce" />
             <span>Call 1930 Emergency Helpline</span>
           </a>
-        </div>
+        </motion.div>
 
-        {/* Advisories Grid */}
+        {/* Advisories Grid with Hover Lift Physics */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-          <div className="p-6 rounded-2xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border font-mono backdrop-blur-md shadow-lg">
+          <motion.div
+            whileHover={{ y: -5, scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className="p-6 rounded-2xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border font-mono backdrop-blur-md shadow-lg hover:border-indiagreen/50 transition-all"
+          >
             <span className="text-xs uppercase text-neutral-400 block mb-1">National Cyber Recovery Rate</span>
             <div className="font-serif text-3xl font-bold text-indiagreen">74.2%</div>
             <div className="text-[11px] text-neutral-500 mt-1">When reported within golden hour (&lt;2h)</div>
-          </div>
-          <div className="p-6 rounded-2xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border font-mono backdrop-blur-md shadow-lg">
+          </motion.div>
+
+          <motion.div
+            whileHover={{ y: -5, scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className="p-6 rounded-2xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border font-mono backdrop-blur-md shadow-lg hover:border-[#4C5BD4]/50 transition-all"
+          >
             <span className="text-xs uppercase text-neutral-400 block mb-1">Mule Accounts Frozen</span>
             <div className="font-serif text-3xl font-bold text-[#4C5BD4]">148,000+</div>
             <div className="text-[11px] text-neutral-500 mt-1">Inter-bank coordination via CFCFRMS</div>
-          </div>
-          <div className="p-6 rounded-2xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border font-mono backdrop-blur-md shadow-lg">
+          </motion.div>
+
+          <motion.div
+            whileHover={{ y: -5, scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className="p-6 rounded-2xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border font-mono backdrop-blur-md shadow-lg hover:border-saffron/50 transition-all"
+          >
             <span className="text-xs uppercase text-neutral-400 block mb-1">Active Phishing Advisories</span>
             <div className="font-serif text-3xl font-bold text-ink dark:text-paper">42 Live</div>
             <div className="text-[11px] text-neutral-500 mt-1">Verified with CERT-In and Police I4C</div>
-          </div>
+          </motion.div>
         </div>
 
         {/* List of Verified Advisories */}
@@ -82,9 +106,11 @@ export const DigitalSafetyPage: React.FC = () => {
 
           <div className="space-y-4">
             {DEMO_ADVISORIES.map((adv) => (
-              <div
+              <motion.div
                 key={adv.id}
-                className="p-5 rounded-xl bg-paper dark:bg-ink border border-hairline border-paper-border dark:border-ink-border font-mono space-y-2 hover:border-[#4C5BD4]/50 transition-all"
+                whileHover={{ y: -3, scale: 1.01 }}
+                transition={{ duration: 0.2 }}
+                className="p-5 rounded-xl bg-paper dark:bg-ink border border-hairline border-paper-border dark:border-ink-border font-mono space-y-2 hover:border-[#4C5BD4]/60 hover:shadow-lg transition-all"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
@@ -101,7 +127,7 @@ export const DigitalSafetyPage: React.FC = () => {
                 <p className="font-sans text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   {adv.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

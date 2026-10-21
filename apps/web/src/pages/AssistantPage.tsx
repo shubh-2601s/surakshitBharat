@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bot,
   Lock,
@@ -375,51 +376,66 @@ export const AssistantPage: React.FC = () => {
 
             {/* Messages Thread */}
             <div className="flex-1 space-y-4 overflow-y-auto mb-4 pr-2 max-h-[440px]">
-              {messages.map((m) => (
-                <div
-                  key={m.id}
-                  className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
-                >
-                  <div
-                    className={`p-4 rounded-2xl max-w-[85%] border leading-relaxed font-sans text-sm ${
-                      m.role === 'user'
-                        ? 'bg-saffron text-ink font-medium border-saffron'
-                        : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-800 dark:text-neutral-200 shadow-sm'
-                    }`}
+              <AnimatePresence initial={false}>
+                {messages.map((m) => (
+                  <motion.div
+                    key={m.id}
+                    initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
-                    <ProfessionalMessage content={m.content} isUser={m.role === 'user'} />
-                  </div>
+                    <div
+                      className={`p-4 rounded-2xl max-w-[85%] border leading-relaxed font-sans text-sm shadow-sm transition-all ${
+                        m.role === 'user'
+                          ? 'bg-saffron text-ink font-medium border-saffron'
+                          : 'bg-paper dark:bg-ink border-paper-border dark:border-ink-border text-neutral-800 dark:text-neutral-200'
+                      }`}
+                    >
+                      <ProfessionalMessage content={m.content} isUser={m.role === 'user'} />
+                    </div>
 
-                  <div className="flex items-center gap-2 text-[10px] text-neutral-400 mt-1 px-1 font-mono">
-                    <span>{m.timestamp}</span>
-                    {m.role === 'assistant' && (
-                      <button
-                        onClick={() => copyToClipboard(m.content, m.id)}
-                        className="hover:text-saffron flex items-center gap-0.5"
-                      >
-                        {copiedId === m.id ? (
-                          <>
-                            <Check className="w-3 h-3 text-indiagreen" />
-                            <span className="text-indiagreen">Copied</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            <span>Copy</span>
-                          </>
-                        )}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
+                    <div className="flex items-center gap-2 text-[10px] text-neutral-400 mt-1 px-1 font-mono">
+                      <span>{m.timestamp}</span>
+                      {m.role === 'assistant' && (
+                        <button
+                          onClick={() => copyToClipboard(m.content, m.id)}
+                          className="hover:text-saffron flex items-center gap-0.5 transition-colors"
+                        >
+                          {copiedId === m.id ? (
+                            <>
+                              <Check className="w-3 h-3 text-indiagreen" />
+                              <span className="text-indiagreen font-bold">Copied</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3 h-3" />
+                              <span>Copy</span>
+                            </>
+                          )}
+                        </button>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
 
-              {loading && (
-                <div className="flex items-center gap-2 text-saffron p-3 rounded-xl bg-saffron/10 border border-saffron/30 w-fit">
-                  <span className="w-2 h-2 rounded-full bg-saffron animate-ping" />
-                  <span className="font-mono text-xs">Suraksha AI is reasoning...</span>
-                </div>
-              )}
+                {loading && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    className="flex items-center gap-2.5 text-saffron p-3.5 rounded-2xl bg-saffron/10 border border-saffron/30 w-fit backdrop-blur-md shadow-sm"
+                  >
+                    <Bot className="w-4 h-4 text-saffron animate-bounce" />
+                    <span className="font-mono text-xs font-semibold">Suraksha AI reasoning</span>
+                    <div className="flex items-center gap-1 pl-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-saffron animate-ping" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-saffron animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-saffron animate-ping" />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Suggested Prompts Pills */}

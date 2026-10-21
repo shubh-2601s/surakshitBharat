@@ -1,5 +1,6 @@
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { LandingPage } from './pages/LandingPage';
@@ -20,30 +21,48 @@ import { MobileBottomBar } from './components/common/MobileBottomBar';
 import { Bot } from 'lucide-react';
 
 export const App: React.FC = () => {
+  const location = useLocation();
+
+  // Scroll to top smoothly upon route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen flex flex-col bg-paper dark:bg-ink text-ink dark:text-paper selection:bg-saffron selection:text-white transition-colors">
       <Header />
 
-      <main className="flex-1 w-full pb-16 md:pb-0">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/safety-grid" element={<SafetyGridPage />} />
-          <Route path="/transport" element={<TransportPage />} />
-          <Route path="/digital-safety" element={<DigitalSafetyPage />} />
-          <Route path="/manufacturers" element={<ManufacturersPage />} />
-          <Route path="/verify" element={<BatchVerificationPage />} />
-          <Route path="/verify/:batchCode" element={<BatchVerificationPage />} />
-          <Route path="/methodology" element={<MethodologyPage />} />
-          <Route path="/report/new" element={<ReportHazardPage />} />
-          <Route path="/reports" element={<ReportTrackingPage />} />
-          <Route path="/reports/:ref" element={<ReportTrackingPage />} />
-          <Route path="/authority/queue" element={<AuthorityQueuePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/assistant" element={<AssistantPage />} />
-          <Route path="*" element={<LandingPage />} />
-        </Routes>
+      <main className="flex-1 w-full pb-16 md:pb-0 overflow-x-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="w-full flex-1 flex flex-col"
+          >
+            <Routes location={location}>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/safety-grid" element={<SafetyGridPage />} />
+              <Route path="/transport" element={<TransportPage />} />
+              <Route path="/digital-safety" element={<DigitalSafetyPage />} />
+              <Route path="/manufacturers" element={<ManufacturersPage />} />
+              <Route path="/verify" element={<BatchVerificationPage />} />
+              <Route path="/verify/:batchCode" element={<BatchVerificationPage />} />
+              <Route path="/methodology" element={<MethodologyPage />} />
+              <Route path="/report/new" element={<ReportHazardPage />} />
+              <Route path="/reports" element={<ReportTrackingPage />} />
+              <Route path="/reports/:ref" element={<ReportTrackingPage />} />
+              <Route path="/authority/queue" element={<AuthorityQueuePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/assistant" element={<AssistantPage />} />
+              <Route path="*" element={<LandingPage />} />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       <Footer />

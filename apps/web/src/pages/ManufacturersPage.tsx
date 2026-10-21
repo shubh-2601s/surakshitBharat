@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Factory, QrCode, CheckCircle, Search, ShieldCheck, ExternalLink, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -33,9 +34,18 @@ export const ManufacturersPage: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-white/20">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-white/20"
+        >
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/80 border border-[#0F9D8A]/40 font-mono text-xs text-[#20D9BF] uppercase tracking-wider mb-3 backdrop-blur-md shadow-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0F9D8A] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0F9D8A]" />
+              </span>
               <Factory className="w-4 h-4 text-[#20D9BF]" />
               <span className="font-semibold">Pillar 02 • National Manufacturing Integrity</span>
               <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/20 text-red-300 text-[10px] border border-signalred/40 ml-1">
@@ -53,14 +63,14 @@ export const ManufacturersPage: React.FC = () => {
 
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0F9D8A] hover:bg-[#0F9D8A]/90 text-white font-mono text-xs font-bold shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0F9D8A] hover:bg-[#0F9D8A]/90 text-white font-mono text-xs font-bold shadow-md hover:scale-105 transition-all"
           >
             <Factory className="w-3.5 h-3.5" />
             <span>Manufacturer Portal</span>
           </Link>
-        </div>
+        </motion.div>
 
-        {/* Search Bar */}
+        {/* Search Bar with Focus Glow */}
         <div className="mb-6 relative max-w-md font-mono text-xs">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
           <input
@@ -68,12 +78,17 @@ export const ManufacturersPage: React.FC = () => {
             placeholder="Search manufacturer, BIS standard (e.g. IS 694)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-paper-card dark:bg-ink-card border border-paper-border dark:border-ink-border text-ink dark:text-paper focus:outline-none focus:border-[#0F9D8A] backdrop-blur-md"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-paper-card dark:bg-ink-card border border-paper-border dark:border-ink-border text-ink dark:text-paper focus:outline-none focus:border-[#0F9D8A] focus:ring-1 focus:ring-[#0F9D8A] backdrop-blur-md transition-all shadow-sm"
           />
         </div>
 
         {/* Registry Table */}
-        <div className="overflow-x-auto rounded-2xl border border-hairline border-paper-border dark:border-ink-border bg-paper-card/90 dark:bg-ink-card/90 backdrop-blur-md shadow-xl">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="overflow-x-auto rounded-2xl border border-hairline border-paper-border dark:border-ink-border bg-paper-card/90 dark:bg-ink-card/90 backdrop-blur-md shadow-2xl"
+        >
           <table className="w-full text-left font-mono text-xs">
             <thead className="bg-paper-muted/80 dark:bg-ink-muted/80 text-neutral-500 uppercase text-[10px] border-b border-paper-border dark:border-ink-border">
               <tr>
@@ -87,7 +102,7 @@ export const ManufacturersPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-paper-border dark:divide-ink-border">
               {filtered.map((mfg) => (
-                <tr key={mfg.id} className="hover:bg-paper/50 dark:hover:bg-ink/50 transition-colors">
+                <tr key={mfg.id} className="hover:bg-teal-500/10 transition-colors">
                   <td className="p-3.5 font-bold text-[#0F9D8A]">{mfg.id}</td>
                   <td className="p-3.5 font-sans font-semibold text-ink dark:text-paper">
                     {mfg.name}
@@ -102,7 +117,7 @@ export const ManufacturersPage: React.FC = () => {
                   </td>
                   <td className="p-3.5 text-right">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-[#0F9D8A]/15 text-[#0F9D8A] border border-[#0F9D8A]/30">
-                      <CheckCircle className="w-3 h-3" />
+                      <CheckCircle className="w-3 h-3 text-[#0F9D8A]" />
                       <span>{mfg.status}</span>
                     </span>
                   </td>
@@ -110,7 +125,7 @@ export const ManufacturersPage: React.FC = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
