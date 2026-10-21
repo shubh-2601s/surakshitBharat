@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
 import { AlertTriangle, Camera, MapPin, CheckCircle, ArrowRight, ShieldCheck, UploadCloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { createReport } from '../services/reports';
+import { useAuth } from '../context/AuthContext';
 
 export const ReportHazardPage: React.FC = () => {
+  const { user } = useAuth();
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
   const [pillar, setPillar] = useState<'community' | 'transport' | 'manufacturing' | 'digital'>('community');
+  const [category, setCategory] = useState('Electrical Hazard');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [district, setDistrict] = useState('Bengaluru Urban (Karnataka)');
-  const [urgency, setUrgency] = useState('high');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const randomNum = Math.floor(100000 + Math.random() * 900000);
-    const newRef = `SB-2026-${randomNum}`;
-    setSubmittedRef(newRef);
+    setLoading(true);
+
+    const created = await createReport({
+      pillar,
+      category,
+      title,
+      description,
+      district,
+      reporter_id: user?.id
+    });
+
+    setLoading(false);
+    setSubmittedRef(created.ref_no);
   };
 
   return (
@@ -61,26 +75,27 @@ export const ReportHazardPage: React.FC = () => {
 
             <div className="p-4 rounded-xl bg-paper dark:bg-ink border border-paper-border dark:border-ink-border max-w-sm mx-auto mb-6">
               <span className="text-[10px] uppercase text-neutral-400 block">Incident Reference Number</span>
-              <span className="text-xl font-bold text-saffron tracking-wider">{submittedRef}</span>
+              <span className="text-2xl font-bold text-saffron tracking-wider">{submittedRef}</span>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs">
+              <Link
+                to={`/reports/${submittedRef}`}
+                className="px-5 py-3 rounded-xl bg-saffron text-ink font-bold shadow-md hover:shadow-control-room transition-all flex items-center gap-1.5"
+              >
+                <span>Track This Incident Live</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
               <button
                 onClick={() => {
                   setSubmittedRef(null);
                   setTitle('');
                   setDescription('');
                 }}
-                className="px-4 py-2.5 rounded-xl border border-paper-border dark:border-ink-border text-neutral-600 dark:text-neutral-300 hover:text-ink dark:hover:text-paper"
+                className="px-4 py-3 rounded-xl border border-paper-border dark:border-ink-border text-neutral-600 dark:text-neutral-300 hover:text-ink dark:hover:text-paper"
               >
                 Submit Another Incident
               </button>
-              <Link
-                to="/"
-                className="px-5 py-2.5 rounded-xl bg-saffron text-ink font-bold shadow-sm"
-              >
-                Return to Platform Home
-              </Link>
             </div>
           </div>
         ) : (
@@ -93,7 +108,7 @@ export const ReportHazardPage: React.FC = () => {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button
                   type="button"
-                  onClick={() => setPillar('community')}
+                  onClick={() => { setPillar('community'); setCategory('Civic / Sanitation Hazard'); }}
                   className={`p-3 rounded-xl border text-center transition-all ${
                     pillar === 'community'
                       ? 'bg-[#FF8A1F]/20 border-[#FF8A1F] text-[#FF8A1F] font-bold'
@@ -104,7 +119,7 @@ export const ReportHazardPage: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPillar('transport')}
+                  onClick={() => { setPillar('transport'); setCategory('Road / Highway Defect'); }}
                   className={`p-3 rounded-xl border text-center transition-all ${
                     pillar === 'transport'
                       ? 'bg-[#F2B705]/20 border-[#F2B705] text-[#F2B705] font-bold'
@@ -115,7 +130,7 @@ export const ReportHazardPage: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPillar('manufacturing')}
+                  onClick={() => { setPillar('manufacturing'); setCategory('Suspect Illicit Batch'); }}
                   className={`p-3 rounded-xl border text-center transition-all ${
                     pillar === 'manufacturing'
                       ? 'bg-[#0F9D8A]/20 border-[#0F9D8A] text-[#0F9D8A] font-bold'
@@ -126,7 +141,7 @@ export const ReportHazardPage: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setPillar('digital')}
+                  onClick={() => { setPillar('digital'); setCategory('Cyber Syndicate / Scam'); }}
                   className={`p-3 rounded-xl border text-center transition-all ${
                     pillar === 'digital'
                       ? 'bg-[#4C5BD4]/20 border-[#4C5BD4] text-[#4C5BD4] font-bold'
@@ -204,10 +219,17 @@ export const ReportHazardPage: React.FC = () => {
             {/* Submit CTA */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full py-3.5 rounded-xl bg-saffron hover:bg-saffron-muted text-ink font-bold font-mono text-sm shadow-lg hover:shadow-control-room transition-all flex items-center justify-center gap-2"
             >
-              <AlertTriangle className="w-4 h-4" />
-              <span>Generate Reference & Dispatch Incident</span>
+              {loading ? (
+                <span>Hashing & Dispatched to Queue...</span>
+              ) : (
+                <>
+                  <AlertTriangle className="w-4 h-4" />
+                  <span>Generate Reference & Dispatch Incident</span>
+                </>
+              )}
             </button>
           </form>
         )}
