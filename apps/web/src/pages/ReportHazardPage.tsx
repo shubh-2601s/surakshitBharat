@@ -33,8 +33,8 @@ export const ReportHazardPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Indian Smart City Infrastructure Background - Vivid & Atmospheric */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Indian Smart City Infrastructure Background - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/civic-smartcity-bg.jpg"
           alt="Indian Smart City Boulevard and Infrastructure"

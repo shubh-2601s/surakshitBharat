@@ -12,8 +12,8 @@ export const DigitalSafetyPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Indian Cyber Command Center Background - Vivid & Atmospheric */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Indian Cyber Command Center Background - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/digital-safety-bg.jpg"
           alt="NCSC India Cyber Command Center"

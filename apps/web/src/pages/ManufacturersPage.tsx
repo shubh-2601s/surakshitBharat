@@ -20,8 +20,8 @@ export const ManufacturersPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Indian Advanced Certification Lab Background - Vivid & Atmospheric */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Indian Advanced Certification Lab Background - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/manufacturing-bg.jpg"
           alt="Indian Advanced Certification Lab"

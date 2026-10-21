@@ -54,8 +54,8 @@ export const AssistantPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* India Gate Dusk Ambient Background - Vivid & Atmospheric */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* India Gate Dusk Ambient Background - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/india-gate-hero.jpg"
           alt="Suraksha Assistant Intelligence Background"

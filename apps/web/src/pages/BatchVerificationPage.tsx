@@ -87,15 +87,15 @@ export const BatchVerificationPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Indian Manufacturing Lab Background - Vivid & Atmospheric */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Indian Manufacturing Lab Background - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/manufacturing-bg.jpg"
           alt="Indian Manufacturing Lab Background"
-          className="w-full h-full object-cover object-center opacity-75 dark:opacity-65 brightness-95 contrast-115"
+          className="w-full h-full object-cover object-center opacity-85 dark:opacity-80 brightness-95 contrast-115"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/88 to-paper dark:from-ink/80 dark:via-ink/88 dark:to-ink" />
-        <div className="absolute inset-0 bg-grain pointer-events-none opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/60 via-paper/75 to-paper/95 dark:from-ink/60 via-ink/75 to-ink/95" />
+        <div className="absolute inset-0 bg-grain pointer-events-none opacity-20" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

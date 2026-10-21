@@ -12,8 +12,8 @@ const DEMO_CORRIDORS = [
 export const TransportPage: React.FC = () => {
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Background Indian Landmark: Modern National Expressway Corridor */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Background Indian Landmark: Modern National Expressway Corridor - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/expressway-hero.jpg"
           alt="Modern Indian National Highway Corridor"

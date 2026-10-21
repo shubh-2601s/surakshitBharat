@@ -35,8 +35,8 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden py-16 px-4">
-      {/* Central Secretariat Sandstone Facade Background - Vivid & Atmospheric */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Central Secretariat Sandstone Facade Background - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/secretariat-bg.jpg"
           alt="Central Secretariat New Delhi at Dusk"

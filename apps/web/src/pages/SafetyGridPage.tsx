@@ -107,14 +107,14 @@ export const SafetyGridPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
-      {/* Background Indian Landmark: Central Secretariat & Sandstone Colonnade */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Background Indian Landmark: Central Secretariat & Sandstone Colonnade - Fixed Viewport Backdrop */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <img
           src="/secretariat-bg.jpg"
           alt="Central Secretariat New Delhi"
-          className="w-full h-full object-cover object-top opacity-90 dark:opacity-85 brightness-100 contrast-115"
+          className="w-full h-full object-cover object-center opacity-85 dark:opacity-80 brightness-100 contrast-115"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-paper/60 via-paper/75 to-paper/95 dark:from-ink/60 via-ink/75 to-ink/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/60 via-paper/75 to-paper/95 dark:from-ink/65 via-ink/75 to-ink/95" />
         <div className="absolute inset-0 bg-grain pointer-events-none opacity-20" />
       </div>
 
