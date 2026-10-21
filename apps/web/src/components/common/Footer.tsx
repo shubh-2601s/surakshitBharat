@@ -4,7 +4,7 @@ import { Shield, PhoneCall, AlertTriangle, FileText, CheckCircle2, Globe, Heart 
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full border-t border-hairline border-paper-border dark:border-ink-border bg-paper-card dark:bg-ink-card transition-colors">
+    <footer className="relative z-20 w-full border-t border-hairline border-paper-border dark:border-ink-border bg-paper dark:bg-ink transition-colors shadow-2xl">
       {/* Emergency Hotlines Strip */}
       <div className="w-full bg-paper-muted/50 dark:bg-ink-muted/50 border-b border-hairline border-paper-border dark:border-ink-border py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs">

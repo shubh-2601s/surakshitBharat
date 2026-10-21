@@ -120,61 +120,61 @@ export const SafetyGridPage: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-paper-border dark:border-ink-border">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-white/20">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-saffron uppercase tracking-widest mb-2">
-            <span className="w-2 h-2 rounded-full bg-saffron animate-pulse" />
-            <span>Phase 2 • Telemetry Grid & Analytical Benchmarking</span>
-            <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/15 text-signalred text-[10px] border border-signalred/30">
-              DEMO DATA
-            </span>
-          </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-medium text-ink dark:text-paper tracking-tight">
-            The Safety Grid™ District & State Index
-          </h1>
-          <p className="font-sans text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-2xl">
-            Normalized civic telemetry mesh across 36 States & UTs. View via interactive topological
-            cartogram, high-density accessible data table, or multi-district comparative radar.
-          </p>
-        </div>
-
-        {/* View mode toggle + CSV Export */}
-        <div className="flex items-center flex-wrap gap-2 font-mono text-xs">
-          <div className="flex items-center p-1 rounded-xl bg-paper-card dark:bg-ink-card border border-paper-border dark:border-ink-border">
-            <button
-              onClick={() => setViewMode('cartogram')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
-                viewMode === 'cartogram'
-                  ? 'bg-saffron text-ink font-bold shadow-sm'
-                  : 'text-neutral-500 hover:text-ink dark:hover:text-paper'
-              }`}
-            >
-              <GridIcon className="w-3.5 h-3.5" />
-              <span>Cartogram</span>
-            </button>
-            <button
-              onClick={() => setViewMode('table')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
-                viewMode === 'table'
-                  ? 'bg-saffron text-ink font-bold shadow-sm'
-                  : 'text-neutral-500 hover:text-ink dark:hover:text-paper'
-              }`}
-            >
-              <TableIcon className="w-3.5 h-3.5" />
-              <span>Table View</span>
-            </button>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/80 border border-saffron/40 font-mono text-xs text-saffron uppercase tracking-wider mb-3 backdrop-blur-md shadow-md">
+              <span className="w-2 h-2 rounded-full bg-saffron animate-pulse" />
+              <span className="font-semibold">Phase 2 • Telemetry Grid & Analytical Benchmarking</span>
+              <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/20 text-red-300 text-[10px] border border-signalred/40 ml-1">
+                DEMO DATA
+              </span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white drop-shadow-md leading-tight">
+              The Safety Grid<span className="text-saffron">™</span> District & State Index
+            </h1>
+            <p className="font-sans text-sm sm:text-base text-neutral-200 mt-2 max-w-2xl leading-relaxed drop-shadow">
+              Normalized civic telemetry mesh across 36 States & UTs. View via interactive topological
+              cartogram, high-density accessible data table, or multi-district comparative radar.
+            </p>
           </div>
 
-          <button
-            onClick={exportToCsv}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-paper-card dark:bg-ink-card border border-paper-border dark:border-ink-border text-neutral-700 dark:text-neutral-300 hover:border-saffron hover:text-saffron transition-all"
-            title="Export approved aggregate data to CSV"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span>Export CSV</span>
-          </button>
+          {/* View mode toggle + CSV Export */}
+          <div className="flex items-center flex-wrap gap-2 font-mono text-xs">
+            <div className="flex items-center p-1 rounded-xl bg-ink/85 border border-white/20 shadow-md backdrop-blur-md">
+              <button
+                onClick={() => setViewMode('cartogram')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${
+                  viewMode === 'cartogram'
+                    ? 'bg-saffron text-ink font-bold shadow-md'
+                    : 'text-neutral-300 hover:text-white'
+                }`}
+              >
+                <GridIcon className="w-3.5 h-3.5" />
+                <span>Cartogram</span>
+              </button>
+              <button
+                onClick={() => setViewMode('table')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${
+                  viewMode === 'table'
+                    ? 'bg-saffron text-ink font-bold shadow-md'
+                    : 'text-neutral-300 hover:text-white'
+                }`}
+              >
+                <TableIcon className="w-3.5 h-3.5" />
+                <span>Table View</span>
+              </button>
+            </div>
+
+            <button
+              onClick={exportToCsv}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-ink/85 border border-white/20 text-neutral-200 hover:border-saffron hover:text-saffron transition-all font-mono text-xs shadow-md backdrop-blur-md"
+              title="Export approved aggregate data to CSV"
+            >
+              <Download className="w-3.5 h-3.5 text-saffron" />
+              <span>Export CSV</span>
+            </button>
+          </div>
         </div>
-      </div>
 
       {/* Cartogram / Table View Display */}
       {viewMode === 'cartogram' ? (

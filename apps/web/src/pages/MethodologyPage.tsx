@@ -28,15 +28,15 @@ export const MethodologyPage: React.FC = () => {
         </Link>
 
         {/* Header */}
-        <div className="border-b border-hairline border-paper-border dark:border-ink-border pb-8 mb-10">
-          <div className="flex items-center gap-2 font-mono text-xs text-saffron uppercase tracking-widest mb-3">
-            <BookOpen className="w-4 h-4" />
-            <span>Documentation Reference • v1.0-DEMO</span>
+        <div className="border-b border-hairline border-white/20 pb-8 mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/80 border border-saffron/40 font-mono text-xs text-saffron uppercase tracking-wider mb-3 backdrop-blur-md shadow-md">
+            <BookOpen className="w-4 h-4 text-saffron" />
+            <span className="font-semibold">Documentation Reference • v1.0-DEMO</span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-medium tracking-tight text-ink dark:text-paper mb-4">
-            The Safety Grid™ Scoring Methodology
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-md leading-tight">
+            The Safety Grid<span className="text-saffron">™</span> Scoring Methodology
           </h1>
-          <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 font-sans leading-relaxed">
+          <p className="text-base sm:text-lg text-neutral-200 font-sans leading-relaxed drop-shadow">
             The mathematical principles, indicator weightings, data coverage thresholds, and honesty
             constraints governing Surakshit Bharat's composite safety indices.
           </p>

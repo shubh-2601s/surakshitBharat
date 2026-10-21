@@ -25,19 +25,19 @@ export const DigitalSafetyPage: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-paper-border dark:border-ink-border">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-hairline border-white/20">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-[#4C5BD4] uppercase tracking-widest mb-2">
-              <ShieldAlert className="w-4 h-4" />
-              <span>Pillar 04 • National Digital Vigilance</span>
-              <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/15 text-signalred text-[10px] border border-signalred/30">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/80 border border-[#4C5BD4]/40 font-mono text-xs text-[#8090FF] uppercase tracking-wider mb-3 backdrop-blur-md shadow-md">
+              <ShieldAlert className="w-4 h-4 text-[#8090FF]" />
+              <span className="font-semibold">Pillar 04 • National Digital Vigilance</span>
+              <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/20 text-red-300 text-[10px] border border-signalred/40 ml-1">
                 DEMO DATA
               </span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-medium text-ink dark:text-paper tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight drop-shadow-md leading-tight">
               Cyber Threat Advisories & Fraud Defense
             </h1>
-            <p className="font-sans text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-2xl">
+            <p className="font-sans text-sm sm:text-base text-neutral-200 mt-2 max-w-2xl leading-relaxed drop-shadow">
               Live syndication of verified cyber crime alerts, malicious APK indicators, and rapid
               financial lien triage via National Helpline 1930.
             </p>
