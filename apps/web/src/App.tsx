@@ -10,6 +10,8 @@ import { ManufacturersPage } from './pages/ManufacturersPage';
 import { MethodologyPage } from './pages/MethodologyPage';
 import { ReportHazardPage } from './pages/ReportHazardPage';
 import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { DashboardPage } from './pages/DashboardPage';
 import { AssistantPage } from './pages/AssistantPage';
 import { Bot, Sparkles } from 'lucide-react';
 
@@ -28,6 +30,8 @@ export const App: React.FC = () => {
           <Route path="/methodology" element={<MethodologyPage />} />
           <Route path="/report/new" element={<ReportHazardPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/assistant" element={<AssistantPage />} />
           <Route path="*" element={<LandingPage />} />
         </Routes>

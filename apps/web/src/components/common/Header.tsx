@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Sun, Moon, Globe, AlertTriangle, ArrowRight, ShieldCheck, Activity } from 'lucide-react';
+import { Shield, Sun, Moon, Globe, AlertTriangle, ArrowRight, ShieldCheck, Activity, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage, Language } from '../../context/LanguageContext';
+import { useAuth } from '../../context/AuthContext';
 import { DEMO_RESOLVED_TICKER } from '@surakshit-bharat/shared';
 
 export const Header: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
+  const { profile, isAuthenticated, signOut, role } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-hairline border-paper-border dark:border-ink-border bg-paper/90 dark:bg-ink/90 backdrop-blur-md transition-colors">
@@ -39,7 +41,7 @@ export const Header: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3 shrink-0 pl-4 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
-          <span>NATIONAL STATUS: <strong className="text-indiagreen">OPERATIONAL</strong></span>
+          <span>STATUS: <strong className="text-indiagreen">OPERATIONAL</strong></span>
           <span className="hidden sm:inline">|</span>
           <span className="hidden sm:inline">CYCLE: 2026-Q4</span>
         </div>
@@ -80,19 +82,19 @@ export const Header: React.FC = () => {
             to="/manufacturers"
             className="text-neutral-700 dark:text-neutral-200 hover:text-pillar-manufacturing dark:hover:text-pillar-manufacturing transition-colors"
           >
-            Manufacturing Registry
+            Manufacturing
           </Link>
           <Link
             to="/transport"
             className="text-neutral-700 dark:text-neutral-200 hover:text-pillar-transport dark:hover:text-pillar-transport transition-colors"
           >
-            Transport Corridors
+            Transport
           </Link>
           <Link
             to="/digital-safety"
             className="text-neutral-700 dark:text-neutral-200 hover:text-pillar-digital dark:hover:text-pillar-digital transition-colors"
           >
-            Digital Vigilance
+            Digital Safety
           </Link>
           <Link
             to="/methodology"
@@ -102,7 +104,7 @@ export const Header: React.FC = () => {
           </Link>
         </nav>
 
-        {/* Action Controls: Language, Theme, Report Hazard, Sign In */}
+        {/* Action Controls: Language, Theme, Auth / Dashboard */}
         <div className="flex items-center gap-3">
           {/* Language Selector */}
           <div className="relative group">
@@ -154,14 +156,36 @@ export const Header: React.FC = () => {
             <span>{t.reportHazard}</span>
           </Link>
 
-          {/* Sign In Link */}
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-hairline border-ink/20 dark:border-paper/20 hover:border-saffron text-ink dark:text-paper text-xs font-medium hover:bg-paper-muted dark:hover:bg-ink-muted transition-all"
-          >
-            <span>{t.signIn}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          {/* Auth State: Show Profile / Dashboard or Sign In & Register */}
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/dashboard"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-paper-card dark:bg-ink-card border border-hairline border-saffron/50 text-ink dark:text-paper text-xs font-mono font-bold hover:border-saffron shadow-sm"
+              >
+                <LayoutDashboard className="w-3.5 h-3.5 text-saffron" />
+                <span className="hidden sm:inline">{profile?.full_name?.split(' ')[0] || 'Dashboard'}</span>
+                <span className="text-[9px] px-1 py-0.2 rounded bg-saffron/20 text-saffron uppercase">
+                  {role}
+                </span>
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5">
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-hairline border-ink/20 dark:border-paper/20 hover:border-saffron text-ink dark:text-paper text-xs font-medium hover:bg-paper-muted dark:hover:bg-ink-muted transition-all"
+              >
+                <span>{t.signIn}</span>
+              </Link>
+              <Link
+                to="/register"
+                className="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-paper-card dark:bg-ink-card border border-saffron/40 text-saffron text-xs font-mono font-bold hover:bg-saffron/10 transition-all"
+              >
+                <span>Register</span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
