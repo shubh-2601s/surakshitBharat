@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 const SURAKSHA_SYSTEM_PROMPT = `
 You are Suraksha Assistant, the official AI intelligence agent of Surakshit Bharat: Unified National Safety Intelligence Platform (Measure. Route. Resolve.).
@@ -40,6 +40,10 @@ export async function sendAssistantMessage(
 
   // Record valid request timestamp & increment daily quota
   recordRateLimitRequest(userId);
+
+  if (!ai) {
+    return `[Suraksha Assistant Offline Mode]: All current platform data represents simulated demonstration records. For urgent civic emergencies, please dial 112. For cyber fraud triage, contact 1930.`;
+  }
 
   try {
     const formattedHistory = history.map((m) => ({
