@@ -648,51 +648,51 @@ export const PresentationPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[92vh] w-full bg-ink text-white flex flex-col justify-between overflow-hidden select-none">
-      {/* Dynamic Animated Landmark Photographic Background with Crossfade Transition */}
+      {/* Dynamic Animated Landmark Photographic Background with Crossfade Transition (Matching Hero Section exactly) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.bgImage}
-            initial={{ opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 0.45, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96 }}
-            transition={{ duration: 0.75, ease: 'easeOut' }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 0.9, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
             className="absolute inset-0 w-full h-full"
           >
             <img
               src={slide.bgImage}
               alt={slide.bgCaption}
-              className="w-full h-full object-cover object-center brightness-95 contrast-125 filter"
+              className="w-full h-full object-cover object-center brightness-95 contrast-110"
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* Cinematic Vignette Layers ensuring ultra-crisp typography */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/65" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/95" />
-        <div className="absolute inset-0 bg-grain opacity-25" />
+        {/* Soft Cinematic Vignettes - Matches HeroSection so landmark is clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/45 to-ink/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
+        <div className="absolute inset-0 bg-grain opacity-30" />
 
-        {/* Topic-specific ambient neon aura */}
+        {/* Dynamic Topic-Specific Ambient Glows */}
         <div
-          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl opacity-25 transition-colors duration-700"
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse transition-colors duration-700"
           style={{ backgroundColor: slide.accent }}
         />
         <div
-          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full blur-3xl opacity-20 transition-colors duration-700"
+          className="absolute top-1/2 -right-32 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse transition-colors duration-700"
           style={{ backgroundColor: slide.accent }}
         />
       </div>
 
       {/* Top Presentation Bar */}
-      <header className="relative z-20 w-full px-4 sm:px-8 py-3.5 border-b border-hairline border-white/10 flex items-center justify-between backdrop-blur-md bg-ink/70 shadow-lg">
+      <header className="relative z-20 w-full px-4 sm:px-8 py-3.5 border-b border-hairline border-white/10 flex items-center justify-between backdrop-blur-md bg-ink/75 shadow-lg">
         <div className="flex items-center gap-3">
           <Link
             to="/"
             className="flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-saffron transition-colors"
           >
             <Shield className="w-4 h-4 text-saffron" />
-            <span className="font-bold text-white font-serif">Surakshit Bharat</span>
-            <span className="hidden sm:inline text-[10px] text-neutral-400">• National PPT Deck</span>
+            <span className="font-bold text-white font-serif text-sm">Surakshit Bharat</span>
+            <span className="hidden sm:inline text-[10px] text-neutral-400">• National Presentation</span>
           </Link>
         </div>
 
@@ -755,137 +755,138 @@ export const PresentationPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Slide Canvas with Framer Motion Transitions */}
-      <main className="relative z-10 flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-4 sm:px-8 py-5">
+      {/* Main Slide Canvas with Open Cinematic 2-Column Layout */}
+      <main className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-4 sm:px-8 py-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id}
-            initial={{ opacity: 0, x: 20, scale: 0.98 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: -20, scale: 0.98 }}
-            transition={{ duration: 0.32, ease: 'easeOut' }}
-            className="w-full flex flex-col justify-center"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="w-full"
           >
-            {/* Slide Header & Metadata with Background Setting Indicator */}
-            <div className="mb-5">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-2 font-mono text-xs">
-                <div className="flex items-center gap-2">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Left Column: Editorial Headline & Overview (Directly over vivid landmark background) */}
+              <div className="lg:col-span-5 flex flex-col justify-center text-white">
+                {/* Setting & Category Pills */}
+                <div className="flex flex-wrap items-center gap-2 mb-3 font-mono text-xs">
                   <span
-                    className="px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] border shadow-sm"
+                    className="px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] border shadow-sm backdrop-blur-md"
                     style={{
                       color: slide.accent,
                       borderColor: `${slide.accent}50`,
-                      backgroundColor: `${slide.accent}15`
+                      backgroundColor: `${slide.accent}20`
                     }}
                   >
                     {slide.badge}
                   </span>
-                  <span className="text-neutral-400">• {slide.category}</span>
-                </div>
-
-                {/* Real Landmark Setting Badge */}
-                <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 border border-white/15 text-neutral-300 text-[10.5px] backdrop-blur-md">
-                  <MapPin className="w-3 h-3 text-saffron shrink-0" />
-                  <span>{slide.bgCaption}</span>
-                </div>
-              </div>
-
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 leading-tight drop-shadow-md">
-                {slide.title}
-              </h2>
-              <p className="font-sans text-sm sm:text-base text-neutral-200 font-light max-w-3xl drop-shadow">
-                {slide.subtitle}
-              </p>
-            </div>
-
-            {/* Core Slide Content Container with Glassmorphism */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-ink-card/90 border border-white/15 backdrop-blur-2xl shadow-2xl space-y-5">
-              <div>
-                <h3
-                  className="font-serif text-xl sm:text-2xl font-semibold mb-2"
-                  style={{ color: slide.accent }}
-                >
-                  {slide.content.heading}
-                </h3>
-                <p className="font-sans text-xs sm:text-sm text-neutral-200 leading-relaxed max-w-4xl">
-                  {slide.content.description}
-                </p>
-              </div>
-
-              {/* Key Feature Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                {slide.content.keyPoints.map((point, idx) => {
-                  const Icon = point.icon;
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.06 * idx, duration: 0.28 }}
-                      className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-saffron/40 transition-all flex items-start gap-3.5 group hover:bg-white/[0.07]"
-                    >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border shadow-sm group-hover:scale-105 transition-transform"
-                        style={{
-                          backgroundColor: `${slide.accent}15`,
-                          borderColor: `${slide.accent}40`,
-                          color: slide.accent
-                        }}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-mono text-xs sm:text-sm font-bold text-white mb-1">
-                          {point.title}
-                        </h4>
-                        <p className="font-sans text-xs text-neutral-300 leading-relaxed whitespace-pre-line">
-                          {point.desc}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* Optional Pipeline Steps Strip */}
-              {slide.content.pipelineSteps && (
-                <div className="pt-2 border-t border-white/10">
-                  <div className="text-[11px] font-mono uppercase text-neutral-400 font-bold mb-2.5">
-                    5-Stage Execution Sequence:
+                  <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-ink/75 border border-white/15 text-neutral-300 text-[10px] backdrop-blur-md">
+                    <MapPin className="w-3 h-3 text-saffron shrink-0" />
+                    <span>{slide.bgCaption}</span>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs">
-                    {slide.content.pipelineSteps.map((step, idx) => (
+                </div>
+
+                <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.12] mb-3 text-paper drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                  {slide.title}
+                </h1>
+
+                <p className="font-sans text-sm sm:text-base text-neutral-200 leading-relaxed mb-4 font-light drop-shadow-[0_1px_5px_rgba(0,0,0,0.8)] max-w-xl">
+                  {slide.subtitle}
+                </p>
+
+                <div className="p-4 rounded-2xl bg-ink/75 border border-white/15 backdrop-blur-md mb-4 shadow-xl">
+                  <h3
+                    className="font-serif text-base sm:text-lg font-bold mb-1"
+                    style={{ color: slide.accent }}
+                  >
+                    {slide.content.heading}
+                  </h3>
+                  <p className="font-sans text-xs text-neutral-300 leading-relaxed">
+                    {slide.content.description}
+                  </p>
+                </div>
+
+                {/* Optional Metrics Row */}
+                {slide.content.metrics && (
+                  <div className="grid grid-cols-2 gap-2.5 font-mono">
+                    {slide.content.metrics.map((m, idx) => (
                       <div
                         key={idx}
-                        className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col justify-between"
+                        className="p-3 rounded-xl bg-ink/75 border border-white/15 backdrop-blur-md shadow-md"
                       >
-                        <div className="text-saffron font-bold text-[10px] uppercase mb-1">
-                          {step.step}
-                        </div>
-                        <div className="text-[11px] text-neutral-200 font-sans leading-tight mb-2">
-                          {step.action}
-                        </div>
-                        <div className="text-[10px] text-neutral-400 font-mono">
-                          Latency: <strong className="text-emerald-400">{step.time}</strong>
-                        </div>
+                        <div className="text-xl sm:text-2xl font-bold font-serif text-white">{m.value}</div>
+                        <div className="text-[10.5px] text-neutral-300 font-sans font-medium mt-0.5">{m.label}</div>
+                        <div className="text-[9px] text-neutral-400 font-mono mt-0.5">{m.sub}</div>
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
-              {/* Optional Metrics Row */}
-              {slide.content.metrics && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2.5 border-t border-white/10 font-mono">
-                  {slide.content.metrics.map((m, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                      <div className="text-xl sm:text-2xl font-bold font-serif text-white">{m.value}</div>
-                      <div className="text-[11px] text-neutral-300 font-sans font-medium mt-0.5">{m.label}</div>
-                      <div className="text-[9.5px] text-neutral-400 font-mono mt-0.5">{m.sub}</div>
-                    </div>
-                  ))}
+              {/* Right Column: Key Feature Cards with Airy Semi-Transparent Glass */}
+              <div className="lg:col-span-7 flex flex-col justify-center space-y-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  {slide.content.keyPoints.map((point, idx) => {
+                    const Icon = point.icon;
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.08 * idx, duration: 0.3 }}
+                        className="p-4 rounded-2xl bg-ink/70 hover:bg-ink/85 border border-white/15 hover:border-saffron/50 backdrop-blur-md transition-all shadow-xl flex items-start gap-3.5 group hover:scale-[1.02]"
+                      >
+                        <div
+                          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border shadow-md group-hover:scale-110 transition-transform"
+                          style={{
+                            backgroundColor: `${slide.accent}20`,
+                            borderColor: `${slide.accent}50`,
+                            color: slide.accent
+                          }}
+                        >
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-mono text-xs sm:text-sm font-bold text-white mb-1 drop-shadow-sm">
+                            {point.title}
+                          </h4>
+                          <p className="font-sans text-xs text-neutral-300 leading-relaxed whitespace-pre-line">
+                            {point.desc}
+                          </p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
-              )}
+
+                {/* Optional Pipeline Steps Strip */}
+                {slide.content.pipelineSteps && (
+                  <div className="p-4 rounded-2xl bg-ink/75 border border-white/15 backdrop-blur-md shadow-xl">
+                    <div className="text-[11px] font-mono uppercase text-neutral-300 font-bold mb-2.5">
+                      5-Stage Operational Pipeline:
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs">
+                      {slide.content.pipelineSteps.map((step, idx) => (
+                        <div
+                          key={idx}
+                          className="p-2.5 rounded-xl bg-white/[0.05] border border-white/10 flex flex-col justify-between"
+                        >
+                          <div className="text-saffron font-bold text-[10px] uppercase mb-1">
+                            {step.step}
+                          </div>
+                          <div className="text-[10.5px] text-neutral-200 font-sans leading-tight mb-1.5">
+                            {step.action}
+                          </div>
+                          <div className="text-[9.5px] text-neutral-400 font-mono">
+                            SLA: <strong className="text-emerald-400">{step.time}</strong>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
