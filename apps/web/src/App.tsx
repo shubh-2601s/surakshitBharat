@@ -7,6 +7,7 @@ import { SafetyGridPage } from './pages/SafetyGridPage';
 import { TransportPage } from './pages/TransportPage';
 import { DigitalSafetyPage } from './pages/DigitalSafetyPage';
 import { ManufacturersPage } from './pages/ManufacturersPage';
+import { BatchVerificationPage } from './pages/BatchVerificationPage';
 import { MethodologyPage } from './pages/MethodologyPage';
 import { ReportHazardPage } from './pages/ReportHazardPage';
 import { ReportTrackingPage } from './pages/ReportTrackingPage';
@@ -29,6 +30,8 @@ export const App: React.FC = () => {
           <Route path="/transport" element={<TransportPage />} />
           <Route path="/digital-safety" element={<DigitalSafetyPage />} />
           <Route path="/manufacturers" element={<ManufacturersPage />} />
+          <Route path="/verify" element={<BatchVerificationPage />} />
+          <Route path="/verify/:batchCode" element={<BatchVerificationPage />} />
           <Route path="/methodology" element={<MethodologyPage />} />
           <Route path="/report/new" element={<ReportHazardPage />} />
           <Route path="/reports" element={<ReportTrackingPage />} />
