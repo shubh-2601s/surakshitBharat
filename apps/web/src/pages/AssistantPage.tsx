@@ -1,27 +1,115 @@
-import React, { useState } from 'react';
-import { Bot, Lock, Send, ShieldAlert, Sparkles, MessageSquare, AlertCircle, Copy, RotateCcw, Check } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  Bot,
+  Lock,
+  Send,
+  ShieldAlert,
+  Sparkles,
+  MessageSquare,
+  AlertCircle,
+  Copy,
+  RotateCcw,
+  Check,
+  Clock,
+  Zap,
+  RefreshCw,
+  AlertTriangle,
+  Info,
+  ShieldCheck
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { sendAssistantMessage, ChatMessage } from '../services/gemini';
+import {
+  checkRateLimit,
+  resetRateLimit,
+  RateLimitStatus,
+  MAX_REQUESTS_PER_MINUTE,
+  MAX_REQUESTS_PER_DAY
+} from '../services/rateLimiter';
 
 export const AssistantPage: React.FC = () => {
-  const { isAuthenticated, signInAsDemo } = useAuth();
+  const { user, profile, isAuthenticated, signInAsDemo } = useAuth();
+  const userId = profile?.id || user?.id;
+
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-01',
       role: 'assistant',
       content:
-        'Namaste! I am your **Suraksha Assistant**, powered by Gemini AI. I can look up incident references (e.g. `SB-2026-00412`), explain our 4-pillar Safety Grid scoring weights, or guide you through emergency reporting. Please note all platform statistics reflect **demonstration pilot data**.',
+        'Namaste! I am your **Suraksha Assistant**, powered by Gemini AI.\n\n⚡ **Daily Quota:** You have **30 requests available per day** (maximum **2 requests per minute**).\n\nI can look up incident references (e.g. `SB-2026-00412`), explain our 4-pillar Safety Grid scoring weights, or guide you through emergency reporting. Please note all platform statistics reflect **demonstration pilot data**.',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
   const [loading, setLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  // Rate Limiting State
+  const [rateLimitStatus, setRateLimitStatus] = useState<RateLimitStatus>(() =>
+    checkRateLimit(userId)
+  );
+  const [cooldown, setCooldown] = useState<number>(() => {
+    const initial = checkRateLimit(userId);
+    return !initial.allowed && initial.reason === 'minute_limit' ? initial.waitSeconds : 0;
+  });
+
+  // Re-sync rate limit on user change
+  useEffect(() => {
+    const status = checkRateLimit(userId);
+    setRateLimitStatus(status);
+    if (!status.allowed && status.reason === 'minute_limit') {
+      setCooldown(status.waitSeconds);
+    } else {
+      setCooldown(0);
+    }
+  }, [userId]);
+
+  // Active 1-second countdown ticker when in cooldown
+  useEffect(() => {
+    if (cooldown <= 0) return;
+
+    const timer = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          const updated = checkRateLimit(userId);
+          setRateLimitStatus(updated);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldown, userId]);
+
+  // Periodic status refresh to automatically clear sliding 60-second window
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const current = checkRateLimit(userId);
+      setRateLimitStatus(current);
+      if (!current.allowed && current.reason === 'minute_limit' && cooldown === 0) {
+        setCooldown(current.waitSeconds);
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [userId, cooldown]);
+
   const handleSend = async (textToSend?: string) => {
     const prompt = textToSend || input;
     if (!prompt.trim() || loading) return;
+
+    // Strict client-side rate limit check
+    const currentStatus = checkRateLimit(userId);
+    if (!currentStatus.allowed) {
+      setRateLimitStatus(currentStatus);
+      if (currentStatus.reason === 'minute_limit') {
+        setCooldown(currentStatus.waitSeconds);
+      }
+      return;
+    }
 
     const userMsg: ChatMessage = {
       id: `usr-${Date.now()}`,
@@ -34,16 +122,31 @@ export const AssistantPage: React.FC = () => {
     setInput('');
     setLoading(true);
 
-    const reply = await sendAssistantMessage(prompt, messages);
-    const botMsg: ChatMessage = {
-      id: `bot-${Date.now()}`,
-      role: 'assistant',
-      content: reply,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
+    try {
+      const reply = await sendAssistantMessage(prompt, messages, userId);
+      const botMsg: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        role: 'assistant',
+        content: reply,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    } finally {
+      setLoading(false);
+      // Refresh rate limit state immediately after message is sent
+      const updated = checkRateLimit(userId);
+      setRateLimitStatus(updated);
+      if (!updated.allowed && updated.reason === 'minute_limit') {
+        setCooldown(updated.waitSeconds);
+      }
+    }
+  };
 
-    setMessages((prev) => [...prev, botMsg]);
-    setLoading(false);
+  const handleResetLimits = () => {
+    resetRateLimit(userId);
+    const refreshed = checkRateLimit(userId);
+    setRateLimitStatus(refreshed);
+    setCooldown(0);
   };
 
   const copyToClipboard = (text: string, id: string) => {
@@ -51,6 +154,11 @@ export const AssistantPage: React.FC = () => {
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
+
+  const isDailyLimitReached = rateLimitStatus.remainingToday <= 0;
+  const isMinuteCooldown = cooldown > 0;
+  const isSendDisabled = loading || !input.trim() || isDailyLimitReached || isMinuteCooldown;
+  const percentageRemaining = Math.round((rateLimitStatus.remainingToday / MAX_REQUESTS_PER_DAY) * 100);
 
   return (
     <div className="relative min-h-[90vh] w-full overflow-hidden">
@@ -67,9 +175,9 @@ export const AssistantPage: React.FC = () => {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Header */}
-        <div className="border-b border-hairline border-paper-border dark:border-ink-border pb-6 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="border-b border-hairline border-paper-border dark:border-ink-border pb-6 mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-saffron uppercase tracking-widest mb-2">
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-saffron uppercase tracking-widest mb-2">
               <Sparkles className="w-4 h-4 text-saffron" />
               <span>Phase 5 • National AI Grounded Intelligence</span>
               <span className="px-1.5 py-0.5 rounded font-mono font-bold bg-signalred/15 text-signalred text-[10px] border border-signalred/30">
@@ -86,27 +194,75 @@ export const AssistantPage: React.FC = () => {
           </div>
 
           {isAuthenticated && (
-            <button
-              onClick={() =>
-                setMessages([
-                  {
-                    id: 'msg-fresh',
-                    role: 'assistant',
-                    content: 'Session refreshed. How may I assist with your civic safety inquiries?',
-                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                  }
-                ])
-              }
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper font-mono text-xs self-start sm:self-auto"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>New Session</span>
-            </button>
+            <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+              {/* Daily Quota Counter Badge */}
+              <div
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono shadow-sm transition-all ${
+                  isDailyLimitReached
+                    ? 'bg-signalred/10 border-signalred/30 text-signalred font-bold'
+                    : rateLimitStatus.remainingToday <= 5
+                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400 font-semibold'
+                    : 'bg-paper-card dark:bg-ink-card border-paper-border dark:border-ink-border text-neutral-700 dark:text-neutral-300'
+                }`}
+                title={`Daily Quota: ${rateLimitStatus.usedToday}/${MAX_REQUESTS_PER_DAY} used today. Max ${MAX_REQUESTS_PER_MINUTE} req/min.`}
+              >
+                <Zap className="w-3.5 h-3.5 text-saffron shrink-0" />
+                <span className="font-bold text-saffron">{rateLimitStatus.remainingToday}</span>
+                <span className="text-neutral-500 dark:text-neutral-400">/{MAX_REQUESTS_PER_DAY} left today</span>
+              </div>
+
+              {/* Minute Limit Pill */}
+              <div
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-mono transition-all ${
+                  isMinuteCooldown
+                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-600 dark:text-amber-400 animate-pulse'
+                    : 'bg-paper-card dark:bg-ink-card border-paper-border dark:border-ink-border text-neutral-500 dark:text-neutral-400'
+                }`}
+              >
+                <Clock className="w-3.5 h-3.5 shrink-0 text-neutral-400" />
+                {isMinuteCooldown ? (
+                  <span className="font-bold">{cooldown}s cooldown</span>
+                ) : (
+                  <span>2/min max</span>
+                )}
+              </div>
+
+              {/* Reset Quota (for testing) */}
+              <button
+                onClick={handleResetLimits}
+                title="Reset demo rate limit counters for testing"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-paper-border dark:border-ink-border hover:border-saffron text-neutral-500 hover:text-ink dark:hover:text-paper font-mono text-xs transition-colors"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span className="hidden sm:inline">Reset Quota</span>
+              </button>
+
+              {/* New Session Button */}
+              <button
+                onClick={() =>
+                  setMessages([
+                    {
+                      id: 'msg-fresh',
+                      role: 'assistant',
+                      content:
+                        'Session refreshed. ⚡ **Quota:** ' +
+                        rateLimitStatus.remainingToday +
+                        '/30 queries remaining today (max 2/min). How may I assist you?',
+                      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    }
+                  ])
+                }
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-paper-border dark:border-ink-border text-neutral-500 hover:text-ink dark:hover:text-paper font-mono text-xs transition-colors"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>New Session</span>
+              </button>
+            </div>
           )}
         </div>
 
         {!isAuthenticated ? (
-          /* Mandatory signed-in gating from Section 9 */
+          /* Mandatory signed-in gating */
           <div className="p-8 sm:p-12 rounded-3xl bg-paper-card/90 dark:bg-ink-card/90 border border-hairline border-paper-border dark:border-ink-border text-center max-w-xl mx-auto shadow-2xl backdrop-blur-md">
             <div className="w-16 h-16 rounded-2xl bg-saffron/15 text-saffron mx-auto flex items-center justify-center mb-6 border border-saffron/30">
               <Lock className="w-8 h-8" />
@@ -117,10 +273,31 @@ export const AssistantPage: React.FC = () => {
             </h3>
 
             <p className="font-sans text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
-              In accordance with national security safeguards and per-user token quotas, Suraksha
-              Assistant is restricted to authenticated users. All conversation sessions are end-to-end
-              encrypted and scoped solely to your verified reports.
+              In accordance with national security safeguards and compute fair-share rules, Suraksha
+              Assistant is restricted to authenticated users.
             </p>
+
+            {/* Quota policy announcement card */}
+            <div className="p-4 rounded-2xl bg-paper/80 dark:bg-ink/80 border border-paper-border dark:border-ink-border text-left mb-6 font-mono text-xs">
+              <div className="flex items-center gap-2 text-saffron font-bold uppercase tracking-wider mb-2">
+                <ShieldCheck className="w-4 h-4 text-saffron" />
+                <span>Fair-Use Quota Policy</span>
+              </div>
+              <ul className="space-y-1.5 text-neutral-600 dark:text-neutral-300">
+                <li className="flex items-center justify-between">
+                  <span>• Daily Request Limit:</span>
+                  <span className="font-bold text-ink dark:text-paper">30 queries / user / day</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span>• Velocity Rate Limit:</span>
+                  <span className="font-bold text-ink dark:text-paper">Max 2 requests / minute</span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span>• Quota Refresh:</span>
+                  <span className="font-bold text-ink dark:text-paper">Every midnight (00:00 local time)</span>
+                </li>
+              </ul>
+            </div>
 
             <div className="p-3.5 rounded-xl bg-signalred/10 border border-signalred/30 text-xs font-mono text-signalred mb-8 flex items-center justify-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -144,9 +321,59 @@ export const AssistantPage: React.FC = () => {
           </div>
         ) : (
           /* Authenticated Interactive Chat Session */
-          <div className="rounded-3xl border border-hairline border-paper-border dark:border-ink-border bg-paper-card/90 dark:bg-ink-card/90 p-6 shadow-2xl font-mono text-xs backdrop-blur-md flex flex-col min-h-[520px]">
+          <div className="rounded-3xl border border-hairline border-paper-border dark:border-ink-border bg-paper-card/90 dark:bg-ink-card/90 p-5 sm:p-6 shadow-2xl font-mono text-xs backdrop-blur-md flex flex-col min-h-[540px]">
+            {/* Top Dedicated Quota Banner Bar */}
+            <div className="p-3 rounded-2xl bg-paper/80 dark:bg-ink/80 border border-paper-border dark:border-ink-border mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-saffron/15 text-saffron flex items-center justify-center font-bold">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-sans font-semibold text-ink dark:text-paper text-sm">
+                      {rateLimitStatus.remainingToday} of {MAX_REQUESTS_PER_DAY} Requests Available Today
+                    </span>
+                    <span
+                      className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                        rateLimitStatus.remainingToday > 10
+                          ? 'bg-indiagreen/15 text-indiagreen border border-indiagreen/30'
+                          : rateLimitStatus.remainingToday > 0
+                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30'
+                          : 'bg-signalred/15 text-signalred border border-signalred/30'
+                      }`}
+                    >
+                      {percentageRemaining}% Available
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-neutral-500 dark:text-neutral-400 font-sans mt-0.5">
+                    Speed limit: <strong className="font-mono text-ink dark:text-paper">Max 2 requests/minute</strong> • Daily quota resets at midnight (00:00)
+                  </div>
+                </div>
+              </div>
+
+              {/* Visual Mini Progress Bar */}
+              <div className="w-full sm:w-44 flex flex-col gap-1">
+                <div className="flex items-center justify-between text-[10px] text-neutral-400 font-mono">
+                  <span>Usage: {rateLimitStatus.usedToday}/{MAX_REQUESTS_PER_DAY}</span>
+                  <span>{rateLimitStatus.remainingToday} left</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-paper-border dark:bg-ink-border overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${
+                      rateLimitStatus.remainingToday > 10
+                        ? 'bg-saffron'
+                        : rateLimitStatus.remainingToday > 0
+                        ? 'bg-amber-500'
+                        : 'bg-signalred'
+                    }`}
+                    style={{ width: `${percentageRemaining}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Messages Thread */}
-            <div className="flex-1 space-y-4 overflow-y-auto mb-6 pr-2 max-h-[460px]">
+            <div className="flex-1 space-y-4 overflow-y-auto mb-4 pr-2 max-h-[440px]">
               {messages.map((m) => (
                 <div
                   key={m.id}
@@ -199,23 +426,51 @@ export const AssistantPage: React.FC = () => {
               <span className="text-neutral-400 shrink-0">Try asking:</span>
               <button
                 onClick={() => handleSend('How is the Safety Grid composite score calculated?')}
-                className="px-2.5 py-1 rounded-lg bg-paper dark:bg-ink border border-paper-border dark:border-ink-border hover:border-saffron text-neutral-600 dark:text-neutral-300 shrink-0"
+                disabled={isSendDisabled && !input.trim()}
+                className="px-2.5 py-1 rounded-lg bg-paper dark:bg-ink border border-paper-border dark:border-ink-border hover:border-saffron text-neutral-600 dark:text-neutral-300 shrink-0 disabled:opacity-50"
               >
                 Explain Safety Grid weights
               </button>
               <button
                 onClick={() => handleSend('What should I do if I receive a fake electricity bill SMS?')}
-                className="px-2.5 py-1 rounded-lg bg-paper dark:bg-ink border border-paper-border dark:border-ink-border hover:border-[#4C5BD4] text-neutral-600 dark:text-neutral-300 shrink-0"
+                disabled={isSendDisabled && !input.trim()}
+                className="px-2.5 py-1 rounded-lg bg-paper dark:bg-ink border border-paper-border dark:border-ink-border hover:border-[#4C5BD4] text-neutral-600 dark:text-neutral-300 shrink-0 disabled:opacity-50"
               >
                 Cyber fraud helpline (1930)
               </button>
               <button
                 onClick={() => handleSend('Status lookup for ticket SB-2026-00412')}
-                className="px-2.5 py-1 rounded-lg bg-paper dark:bg-ink border border-paper-border dark:border-ink-border hover:border-saffron text-neutral-600 dark:text-neutral-300 shrink-0"
+                disabled={isSendDisabled && !input.trim()}
+                className="px-2.5 py-1 rounded-lg bg-paper dark:bg-ink border border-paper-border dark:border-ink-border hover:border-saffron text-neutral-600 dark:text-neutral-300 shrink-0 disabled:opacity-50"
               >
                 Check ticket SB-2026-00412
               </button>
             </div>
+
+            {/* Rate Limit Active Warning Banners */}
+            {isDailyLimitReached ? (
+              <div className="mb-3 p-3.5 rounded-2xl bg-signalred/15 border border-signalred/40 text-signalred text-xs font-mono flex items-center gap-3 shadow-sm">
+                <AlertTriangle className="w-5 h-5 shrink-0" />
+                <div>
+                  <div className="font-bold">Daily Request Quota Exhausted (30 of 30 queries used today)</div>
+                  <div className="text-[11px] text-signalred/90 font-sans mt-0.5">
+                    To maintain equitable compute access, your daily allocation of 30 requests has ended. Quota will automatically reset tonight at midnight (00:00).
+                  </div>
+                </div>
+              </div>
+            ) : isMinuteCooldown ? (
+              <div className="mb-3 p-3 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 text-xs font-mono flex items-center justify-between gap-3 shadow-sm">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 shrink-0 animate-spin text-amber-500" style={{ animationDuration: '3s' }} />
+                  <span>
+                    Rate limit active (max 2 queries/minute). Please wait <strong>{cooldown} seconds</strong> before sending your next query.
+                  </span>
+                </div>
+                <span className="px-2.5 py-1 rounded-lg bg-amber-500/25 font-bold text-xs text-amber-800 dark:text-amber-200">
+                  {cooldown}s
+                </span>
+              </div>
+            ) : null}
 
             {/* Input Bar */}
             <form
@@ -229,18 +484,51 @@ export const AssistantPage: React.FC = () => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about civic hazards, tracking numbers, or platform methodology..."
-                className="w-full p-3.5 pr-14 rounded-2xl bg-paper dark:bg-ink border border-paper-border dark:border-ink-border text-ink dark:text-paper focus:outline-none focus:border-saffron font-sans text-sm shadow-inner"
+                disabled={isDailyLimitReached}
+                placeholder={
+                  isDailyLimitReached
+                    ? 'Daily rate limit reached (30/30 queries used today). Resets at midnight.'
+                    : isMinuteCooldown
+                    ? `Rate limit active: please wait ${cooldown}s cooldown...`
+                    : 'Ask about civic hazards, tracking numbers, or platform methodology...'
+                }
+                className="w-full p-3.5 pr-20 rounded-2xl bg-paper dark:bg-ink border border-paper-border dark:border-ink-border text-ink dark:text-paper focus:outline-none focus:border-saffron font-sans text-sm shadow-inner disabled:opacity-60 disabled:cursor-not-allowed"
               />
               <button
                 type="submit"
-                disabled={loading || !input.trim()}
+                disabled={isSendDisabled}
                 aria-label="Send query"
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-saffron text-ink hover:bg-saffron-muted disabled:opacity-40 transition-all"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 px-3.5 py-2 rounded-xl bg-saffron text-ink hover:bg-saffron-muted disabled:opacity-40 disabled:cursor-not-allowed transition-all font-mono text-xs font-semibold flex items-center gap-1.5 shadow-sm"
               >
-                <Send className="w-4 h-4" />
+                {isDailyLimitReached ? (
+                  <>
+                    <Lock className="w-3.5 h-3.5" />
+                    <span>Locked</span>
+                  </>
+                ) : isMinuteCooldown ? (
+                  <>
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{cooldown}s</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Send</span>
+                  </>
+                )}
               </button>
             </form>
+
+            {/* Bottom Sub-text showing live quota available */}
+            <div className="flex items-center justify-between text-[11px] text-neutral-400 font-mono mt-2 px-1">
+              <span className="flex items-center gap-1">
+                <Info className="w-3 h-3 text-saffron" />
+                <span>
+                  <strong>{rateLimitStatus.remainingToday} of {MAX_REQUESTS_PER_DAY}</strong> queries available today (Max {MAX_REQUESTS_PER_MINUTE} req/min)
+                </span>
+              </span>
+              <span>Resets daily at 00:00</span>
+            </div>
           </div>
         )}
       </div>

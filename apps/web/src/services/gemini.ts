@@ -23,10 +23,24 @@ export interface ChatMessage {
   timestamp: string;
 }
 
+import { checkRateLimit, recordRateLimitRequest } from './rateLimiter';
+
 export async function sendAssistantMessage(
   userPrompt: string,
-  history: ChatMessage[] = []
+  history: ChatMessage[] = [],
+  userId?: string
 ): Promise<string> {
+  const rateLimitStatus = checkRateLimit(userId);
+  if (!rateLimitStatus.allowed) {
+    if (rateLimitStatus.reason === 'daily_limit') {
+      return `⚠️ **Daily Rate Limit Reached**: You have reached the maximum quota of 30 requests per day for Suraksha Assistant. Your quota will reset at midnight (00:00). For urgent emergency assistance, please call 112 or 1930.`;
+    }
+    return `⏳ **Rate Limit Active**: Maximum 2 requests per minute allowed. Please wait **${rateLimitStatus.waitSeconds} seconds** before submitting another query.`;
+  }
+
+  // Record valid request timestamp & increment daily quota
+  recordRateLimitRequest(userId);
+
   try {
     const formattedHistory = history.map((m) => ({
       role: m.role === 'user' ? 'user' : 'model',

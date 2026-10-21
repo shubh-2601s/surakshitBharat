@@ -102,6 +102,7 @@ export async function createReport(reportData: {
   title: string;
   description: string;
   district: string;
+  photo_path?: string;
   reporter_id?: string;
 }): Promise<ReportItem> {
   const randomNum = Math.floor(100000 + Math.random() * 900000);
@@ -115,6 +116,7 @@ export async function createReport(reportData: {
     title: reportData.title,
     description: reportData.description,
     district: reportData.district,
+    photo_path: reportData.photo_path,
     status: 'submitted',
     due_date: new Date(Date.now() + 72 * 3600 * 1000).toISOString(),
     created_at: new Date().toISOString(),
@@ -128,6 +130,7 @@ export async function createReport(reportData: {
       category: reportData.category,
       title: reportData.title,
       description: reportData.description,
+      photo_path: reportData.photo_path,
       status: 'submitted'
     });
   } catch (err) {

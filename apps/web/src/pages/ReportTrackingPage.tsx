@@ -11,7 +11,8 @@ import {
   UserCheck,
   FileCheck,
   CornerDownRight,
-  ArrowLeft
+  ArrowLeft,
+  Camera
 } from 'lucide-react';
 
 const STATUS_STEPS = [
@@ -179,6 +180,23 @@ export const ReportTrackingPage: React.FC = () => {
                 </span>
                 {report.description}
               </div>
+
+              {/* Photographic Evidence Card if uploaded */}
+              {report.photo_path && (
+                <div className="py-6 border-b border-paper-border dark:border-ink-border">
+                  <span className="font-mono text-[10px] uppercase text-neutral-400 block mb-2 flex items-center gap-1.5">
+                    <Camera className="w-3.5 h-3.5 text-saffron" />
+                    <span>Citizen Field Photographic Evidence (SHA-256 Verified)</span>
+                  </span>
+                  <div className="rounded-2xl overflow-hidden border border-paper-border dark:border-ink-border max-w-md bg-black/10 shadow-sm">
+                    <img
+                      src={report.photo_path}
+                      alt="Incident Evidence Photo"
+                      className="w-full h-56 object-cover object-center"
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* 5-Stage Visual Stepper */}
               <div className="pt-6">
