@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^2.30.0",
     "@supabase/supabase-js": "^2.118.0",
     "@surakshit-bharat/shared": "*",
     "@tanstack/react-query": "^5.40.0",
